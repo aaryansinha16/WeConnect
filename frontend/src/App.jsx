@@ -1,4 +1,4 @@
-import { Box, Flex, useColorMode } from '@chakra-ui/react'
+import { Box, Flex, HStack, useColorMode } from '@chakra-ui/react'
 import { useState } from 'react'
 import './App.css'
 import About from './components/About/About'
@@ -9,15 +9,14 @@ import Navbar from './components/Navbar/Navbar'
 function App() {
   const {colorMode} = useColorMode()
   return (
-    <Box className="App" bg={colorMode == "dark" ? "black" : "white"} pt='7px'>
+    <Box className="App" bg={colorMode == "dark" ? "black" : "yellow"} p='7px' h='100vh' overflow='hidden'>
       <Navbar />
       <Flex
-        justifyContent='space-between'
-        alignItems='center'
-        // border='1px solid red'
+        justifyContent='flex-start'
+        alignItems='flex-start'
         w='100%'
         // m='auto'
-        bg="#20232b"
+        bg={colorMode == 'dark' ? "#20232b" : 'white'}
       >
         <ChatList />
         <MainChat />

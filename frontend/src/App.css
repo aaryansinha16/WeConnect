@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Rubik:ital,wght@0,400;1,300&display=swap');
+
 #root {
   /* max-width: 1280px; */
   margin: 0 auto;
@@ -5,9 +7,45 @@
   text-align: center;
 }
 
-/* .App{
-  width: 100%;
-} */
+html{
+  scroll-behavior: smooth;
+}
+
+.chatListDark::-webkit-scrollbar {
+  width: 4px;
+  background-color: rgb(0, 0, 0);
+}
+ 
+.chatListDark::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+.chatListDark::-webkit-scrollbar-thumb {
+  /* background-color: rgb(148, 144, 144); */
+  background-color: #f0f785;
+  border-radius: 10px;
+  /* outline: 1px solid slategrey; */
+}
+
+.chatListLight::-webkit-scrollbar {
+  width: 4px;
+  background-color: rgb(240, 240, 240);
+}
+ 
+.chatListLight::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+.chatListLight::-webkit-scrollbar-thumb {
+  /* background-color: rgb(148, 144, 144); */
+  background-color: rgb(108, 108, 108);
+  border-radius: 10px;
+  /* outline: 1px solid slategrey; */
+}
+
+.App{
+  font-family: Rubik, sans-serif,monospace;
+}
 
 .typewriter {
   overflow: hidden; /* Ensures the content is not revealed until the animation */

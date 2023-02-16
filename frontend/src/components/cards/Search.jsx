@@ -7,7 +7,6 @@ const Search = () => {
   return (
     <HStack
         p={1}
-        m='auto'
         w='100%'
         justifyContent="center"
         alignItems='center'
@@ -15,9 +14,14 @@ const Search = () => {
         pl={8}
         fontFamily="Rubik"
         bg={colorMode == 'light' ? "gray.300" : '#16171b'}
+        position='sticky'
+        top='0px'
+        zIndex='10'
     >
-        <SearchIcon />
+        <SearchIcon cursor='pointer'/>
         <Input 
+            focusBorderColor='transparent'
+            outline='none'
             // border='1px solid red'
             type='text'
             placeholder='Search'
