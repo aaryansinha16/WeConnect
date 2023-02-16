@@ -1,10 +1,15 @@
+import { Box } from '@chakra-ui/react'
 import React from 'react'
 
 const MainChat = () => {
   return (
-    <div>
+    <Box
+      // border='1px solid pink'
+      w='55%'
+      h='500px'
+    >
       MainChat
-    </div>
+    </Box>
   )
 }
 

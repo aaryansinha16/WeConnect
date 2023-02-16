@@ -14,8 +14,9 @@ import {
     useColorModeValue,
     useDisclosure,
     Switch,
+    Text,
   } from "@chakra-ui/react";
-import { MoonIcon, SunIcon } from '@chakra-ui/icons';
+import { BellIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { FaHeart, FaMoon, FaSun } from "react-icons/fa";
 import {
   AiFillGithub,
@@ -24,6 +25,7 @@ import {
   AiOutlineMenu,
 } from "react-icons/ai";
 import { BsFillCameraVideoFill } from "react-icons/bs";
+import NavProfileCard from '../cards/NavProfileCard';
 
 const Navbar = () => {
 
@@ -120,25 +122,27 @@ const Navbar = () => {
       );
 
   return (
-    <Box pos="relative">
+    <Box pos="relative"
+      borderBottom={colorMode == "dark" ? '3.5px solid black' : "3.5px solid orange"}
+    >
       <chakra.header
         ref={ref}
         shadow={y > height ? "sm" : undefined}
         transition="box-shadow 0.2s"
         bg={bg}
+        borderRadius='50px 50px 0px 0px'
         // borderTop="6px solid"
         // borderTopColor="brand.400"
         w="full"
         overflowY="hidden"
       >
-        <chakra.div h="4.5rem" mx="auto" maxW="1200px">
+        <chakra.div h="4.5rem" mx="100px">
           <Flex w="full" h="full" px="6" align="center" justify="space-between">
             <Flex align="center">
-              <Link href="/">
-                <HStack>
-                  {/* <Logo /> */}
-                </HStack>
-              </Link>
+              <HStack>
+                {/* <Logo /> */}
+                <Text fontSize='32px' fontFamily='mono' fontWeight='bold'>WeConnect</Text>
+              </HStack>
             </Flex>
 
             <Flex
@@ -149,36 +153,36 @@ const Navbar = () => {
               color="gray.400"
               gap='20px'
             >
-              <HStack spacing="5" display={{ base: "none", md: "flex" }}>
-                <Link
-                  isExternal
-                  aria-label="Go to Choc UI GitHub page"
-                  href="https://github.com/anubra266/choc-ui"
-                >
-                  <Icon
-                    as={AiFillGithub}
-                    display="block"
-                    transition="color 0.2s"
-                    w="5"
-                    h="5"
-                    _hover={{ color: "gray.600" }}
-                  />
-                </Link>
-              </HStack>
               <HStack
                     justifyContent='center'
                     alignItems='center'
                     spacing={2}
                 >
-                <SunIcon color='orange' fontSize='20px'/>
+                  <SunIcon color='orange' fontSize='20px'/>
                     <Switch 
                         size='lg'
                         aria-label={`Switch to ${text} mode`}
                         onChange={toggleColorMode}
+                        defaultChecked
                     />
-                <MoonIcon color='darkBlue' fontSize='20px'/>
+                  <MoonIcon color={colorMode == 'light' ? 'darkBlue' : 'gray.400'} fontSize='20px'/>
               </HStack>
-              {/* {SponsorButton} */}
+              <BellIcon fontSize='22px' ml='20px' cursor='pointer'/>
+              <HStack spacing="5" display={{ base: "none", md: "flex" }}>
+                <Link
+                  isExternal
+                  aria-label="Go to Aaryan's GitHub page"
+                  href="https://github.com/aaryansinha16/weconnect"
+                >
+                  <Icon
+                    as={AiFillGithub}
+                    display="block"
+                    transition="color 0.2s"
+                    fontSize='22px'
+                    _hover={{ color: "gray.600" }}
+                  />
+                </Link>
+              </HStack>
               <IconButton
                 display={{ base: "flex", md: "none" }}
                 aria-label="Open menu"
@@ -189,6 +193,8 @@ const Navbar = () => {
                 icon={<AiOutlineMenu />}
                 onClick={mobileNav.onOpen}
               />
+
+              <NavProfileCard />
             </Flex>
           </Flex>
           {MobileNavContent}

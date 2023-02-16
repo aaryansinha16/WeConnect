@@ -1,11 +1,26 @@
 #root {
   /* max-width: 1280px; */
-  /* margin: 0 auto; */
+  margin: 0 auto;
   /* padding: 2rem; */
   text-align: center;
 }
 
-.App{
-  /* height: 100vh; */
+/* .App{
   width: 100%;
+} */
+
+.typewriter {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  /* border-right: .15em solid orange; The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  /* letter-spacing: .15em; Adjust as needed */
+  animation: 
+    typing 1.5s steps(30, end);
+}
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
 }
