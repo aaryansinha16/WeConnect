@@ -123,7 +123,7 @@ const Navbar = () => {
 
   return (
     <Box pos="relative"
-      borderBottom={colorMode == "dark" ? '3.5px solid black' : "3.5px solid orange"}
+      borderBottom={colorMode == "dark" ? '3.5px solid black' : "3.5px solid rgb(240, 240, 240)"}
     >
       <chakra.header
         ref={ref}

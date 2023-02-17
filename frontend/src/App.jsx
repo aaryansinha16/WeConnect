@@ -9,7 +9,7 @@ import Navbar from './components/Navbar/Navbar'
 function App() {
   const {colorMode} = useColorMode()
   return (
-    <Box className="App" bg={colorMode == "dark" ? "black" : "yellow"} p='7px' h='100vh' overflow='hidden'>
+    <Box className="App" bg={colorMode == "dark" ? "black" : "teal"} p='7px' h='100vh' overflow='hidden'>
       <Navbar />
       <Flex
         justifyContent='flex-start'
@@ -17,6 +17,8 @@ function App() {
         w='100%'
         // m='auto'
         bg={colorMode == 'dark' ? "#20232b" : 'white'}
+        pt='10px'
+        gap='15px'
       >
         <ChatList />
         <MainChat />
