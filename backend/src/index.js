@@ -3,7 +3,7 @@ const cors = require("cors")
 const http = require("http")
 const {Server} = require("socket.io")
 require("dotenv").config()
-const PORT = process.env.PORT
+const port = process.env.PORT || 3000
 
 
 const app = express()
@@ -59,6 +59,6 @@ io.on("connection", (conn) => {
     })
 })
 
-server.listen(3000, () => {
+server.listen(port, () => {
     console.log(`Server started on http://localhost:3000`)
 })
