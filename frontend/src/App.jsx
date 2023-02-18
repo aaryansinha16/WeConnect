@@ -9,7 +9,7 @@ import Navbar from './components/Navbar/Navbar'
 import {io} from 'socket.io-client'
 
 
-const Socket = io.connect('http://localhost:3000', {transports: ['polling']})
+const Socket = io.connect('https://chat-app-test.adaptable.app/', {transports: ['polling']})
 function App() {
   const {colorMode} = useColorMode()
   
