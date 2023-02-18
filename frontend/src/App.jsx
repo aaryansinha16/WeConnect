@@ -1,13 +1,28 @@
-import { Box, Flex, HStack, useColorMode } from '@chakra-ui/react'
-import { useState } from 'react'
+import { Box, Flex, HStack, useColorMode, useDisclosure } from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import About from './components/About/About'
 import ChatList from './components/ChatList/ChatList'
 import MainChat from './components/MainChat/MainChat'
+import AuthModal from './components/Modals/AuthModal'
 import Navbar from './components/Navbar/Navbar'
+import {io} from 'socket.io-client'
 
+
+const Socket = io.connect('http://localhost:3000', {transports: ['polling']})
 function App() {
   const {colorMode} = useColorMode()
+  
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
+  useEffect(() => {
+    let userData = JSON.parse(localStorage.getItem("we-connect-user-data")) || undefined
+    if(userData === undefined) onOpen()
+
+    Socket.on("new-connection", (d) => {
+      console.log("Server said: ", d)
+    })
+  }, [])
   return (
     <Box className="App" bg={colorMode == "dark" ? "black" : "teal"} p='7px' h='100vh' overflow='hidden'>
       <Navbar />
@@ -24,6 +39,7 @@ function App() {
         <MainChat />
         <About />
       </Flex>
+      <AuthModal isOpen={isOpen} onClose={onClose}/>
     </Box>
   )
 }
