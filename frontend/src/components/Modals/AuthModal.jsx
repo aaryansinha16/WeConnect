@@ -22,6 +22,8 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useRef } from "react";
+import LoginTab from "./LoginTab";
+import SignUpTab from "./SignUpTab";
 
 const changeCol = keyframes`
   from { backdrop-filter:blur(1px) hue-rotate(0deg);  }
@@ -29,6 +31,7 @@ const changeCol = keyframes`
 `;
 
 export default function AuthModal({ isOpen, onClose }) {
+  const [tabChange, setTabChange] = useState(0)
   const [state, setState] = useState(true);
   const firstRef = useRef(null);
   const toast = useToast();
@@ -73,17 +76,17 @@ export default function AuthModal({ isOpen, onClose }) {
         >
           <ModalBody>
 
-            <Tabs isLazy isFitted variant='soft-rounded'>
+            <Tabs isLazy isFitted variant='soft-rounded' onChange={(ind) => setTabChange(ind)}>
               <TabList mb='1em' gap='10px'>
-                <Tab>Login</Tab>
-                <Tab>SignUp</Tab>
+                <Tab color='gray.300' _hover={{backgroundColor: tabChange != 0 && 'gray.800'}}>Login</Tab>
+                <Tab color='gray.300' _hover={{backgroundColor: tabChange != 1 && 'gray.800'}}>SignUp</Tab>
               </TabList>
               <TabPanels>
                 <TabPanel>
-                  <p>Login</p>
+                  <LoginTab onClose={onClose}/>
                 </TabPanel>
                 <TabPanel>
-                  <p>SignUp</p>
+                  <SignUpTab onClose={onClose} />
                 </TabPanel>
               </TabPanels>
             </Tabs>

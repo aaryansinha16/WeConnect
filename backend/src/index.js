@@ -2,6 +2,7 @@ const express = require("express")
 const cors = require("cors")
 const http = require("http")
 const {Server} = require("socket.io")
+const dbConnect = require('./config/dbConnect')
 require("dotenv").config()
 const port = process.env.PORT || 3000
 
@@ -59,6 +60,7 @@ io.on("connection", (conn) => {
     })
 })
 
-server.listen(port, () => {
+server.listen(port, async () => {
+    await dbConnect()
     console.log(`Server started on http://localhost:3000`)
 })

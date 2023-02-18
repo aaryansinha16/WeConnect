@@ -9,7 +9,8 @@ import Navbar from './components/Navbar/Navbar'
 import {io} from 'socket.io-client'
 
 
-const Socket = io.connect('https://chat-app-test.adaptable.app/', {transports: ['polling']})
+// const Socket = io.connect('https://chat-app-test.adaptable.app/', {transports: ['polling']})
+// https://api.dicebear.com/5.x/adventurer-neutral/svg?seed=
 function App() {
   const {colorMode} = useColorMode()
   
@@ -19,9 +20,9 @@ function App() {
     let userData = JSON.parse(localStorage.getItem("we-connect-user-data")) || undefined
     if(userData === undefined) onOpen()
 
-    Socket.on("new-connection", (d) => {
-      console.log("Server said: ", d)
-    })
+    // Socket.on("new-connection", (d) => {
+    //   console.log("Server said: ", d)
+    // })
   }, [])
   return (
     <Box className="App" bg={colorMode == "dark" ? "black" : "teal"} p='7px' h='100vh' overflow='hidden'>
