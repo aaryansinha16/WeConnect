@@ -9,8 +9,9 @@ const userSchema = new mongoose.Schema({
     admin : {type : Boolean, default : false, required : true}
 }, {timestamps : true})
 
-userSchema.methods.matchPassword = async function(inputPassword){
-    return await bcrypt.compare(inputPassword == this.password)
+
+userSchema.methods.checkPassword = async function(inputPassword){
+    return await bcrypt.compare(inputPassword, this.password)
 }
 
 userSchema.pre("save", async function (next) {

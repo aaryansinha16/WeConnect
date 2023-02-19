@@ -13,6 +13,13 @@ const SignUpTab = ({onClose}) => {
     avatar : ""
   })
 
+  function handleChangeFile(avatar){
+    console.log(avatar)
+    let data = new FormData()
+    console.log(data)
+
+  }
+
   return (
     <VStack
       w='100%'
@@ -69,6 +76,7 @@ const SignUpTab = ({onClose}) => {
             p={1}
             fontSize='18px'
             focusBorderColor='transparent'
+            onChange={(e) => handleChangeFile(e.target.files[0])}
           />
           <Tooltip label="If you don't upload an avatar/profile picture, then a random generated image would be added" aria-label='Info'>
             <InfoIcon />

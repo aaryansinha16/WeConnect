@@ -1,23 +1,58 @@
-import { Button, FormControl, HStack, Input, useColorMode, VStack } from '@chakra-ui/react'
+import { Button, FormControl, HStack, Input, useColorMode, useToast, VStack } from '@chakra-ui/react'
 import React, { useState } from 'react'
+import axios from 'axios'
 
 const LoginTab = ({onClose}) => {
 
   const {colorMode} = useColorMode()
+  const toast = useToast()
 
   const [formData , setFormData] = useState({
     email : "",
     password : ""
   })
 
+  async function handlePost(){
+    return await axios.post('http://localhost:3000/auth/login', formData)
+  }
+
   const handleFormSubmit = (from) => {
     console.log(from)
     if(from === 'guest'){
-      console.log('this is from guest', {email : 'test@gmail.com', password: '123'})
+      console.log('this is from guest', {email : 'guest@gmail.com', password: '123'})
       onClose()
       return
     }
-    console.log(formData)
+
+    console.log(formData, 'this is form data')
+    var flag = false
+    // formData.email.map((el) => el == '@' && (flag = true))
+    for(var i = 0; i<formData.email.length ; i++){
+      if(formData.email[i] == '@') flag = true
+    }
+    if(!flag){
+      toast({
+        title : "Enter a correct email", 
+        status : 'error',
+        duration : 5000,
+        isClosable : true
+      })
+      return
+    }
+
+    if(formData.email.length == 0 || formData.password.length == 0){
+      toast({
+        title: "Enter a vaild email Or password",
+        status : 'error',
+        duration : 5000,
+        isClosable : true
+      })
+    }
+
+    handlePost()
+    .then((res) => console.log(res, 'this is response'))
+    .catch((e) => console.log(e, 'this is error')) 
+    // console.log(formData)
   }
 
   return (
