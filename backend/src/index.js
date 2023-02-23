@@ -10,6 +10,8 @@ const dbConnect = require('./config/dbConnect')
 // * Routes import
 const authRouter = require('./routes/auth.router')
 const userRouter = require('./routes/user.router')
+const messagesRouter = require('./routes/messages.router')
+const chatRouter = require("./routes/chat.router")
 
 // * Environment variables
 require("dotenv").config()
@@ -35,6 +37,8 @@ const io = new Server(server, {
 // Routes
 app.use('/auth', authRouter)
 app.use('/user', userRouter)
+app.use('/messages', messagesRouter)
+app.use('/chat', chatRouter)
 
 // Server test
 app.get("/", (req, res) => {
