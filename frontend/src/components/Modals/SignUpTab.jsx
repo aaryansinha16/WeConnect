@@ -1,10 +1,16 @@
 import { InfoIcon } from '@chakra-ui/icons'
-import { Button, HStack, Input, Tooltip, useColorMode, VStack } from '@chakra-ui/react'
+import { Avatar, Box, Button, Flex, HStack, Input, Tooltip, useColorMode, useToast, VStack } from '@chakra-ui/react'
 import React, { useState } from 'react'
+import axios from 'axios'
+import Gallery from '../../assets/image.png'
 
 const SignUpTab = ({onClose}) => {
 
   const {colorMode} = useColorMode()
+  const toast = useToast()
+
+  const [avatar , setAvatar] = useState("abc")
+  const [visb , setVisb] = useState(false)
 
   const [formData , setFormData] = useState({
     userName : "",
@@ -14,9 +20,28 @@ const SignUpTab = ({onClose}) => {
   })
 
   function handleChangeFile(avatar){
-    console.log(avatar)
-    let data = new FormData()
-    console.log(data)
+    if(avatar == undefined){
+      toast({
+        title : "Invalid image type",
+        status : "error",
+        duration : 4000,
+        isClosable : true
+      })
+      return
+    }
+
+    if(avatar.type == 'image/jpeg' || avatar.type == 'image/png'){
+
+      console.log(avatar.type)
+      let data = new FormData()
+      data.append("file" , avatar)
+      data.append('upload_preset', 'weconnect')
+      data.append('cloud_name', 'dvhzuysvf')
+
+      axios.post("https://api.cloudinary.com/v1_1/dvhzuysvf/image/upload", data)
+      .then((res) => setAvatar(res.data.url))
+      
+    }
 
   }
 
@@ -27,6 +52,12 @@ const SignUpTab = ({onClose}) => {
       alignItems='center'
       spacing={3}
     >
+      <Box as={Flex} cursor='pointer'  onClick={() => document.querySelector('#inputfile').click()}>
+        <Avatar src={avatar} size='2xl' onMouseEnter={() => setVisb(true)} onMouseLeave={() => setVisb(false)} filter={visb ? 'brightness(60%)' : 'none'} />
+        <lable className='custom-file-input' style={{visibility : visb ? "visible" : 'hidden', opacity : '100%' , width: '80px' , position: 'absolute' , transform: 'translate(25px, 50px)' }} onMouseEnter={() => setVisb(true)} onMouseLeave={() => setVisb(false)}>
+          <Input type='file' w='100%' visibility='hidden' id='inputfile' onChange={(e) => handleChangeFile(e.target.files[0])}/>
+        </lable>
+      </Box>
       <Input
         border='none'
         bg={colorMode == 'light' ? 'gray.300' : 'gray.600'} 

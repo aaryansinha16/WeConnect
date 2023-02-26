@@ -107,3 +107,11 @@ html{
   from { width: 0 }
   to { width: 100% }
 }
+
+.custom-file-input{
+  background-image: url(./assets/image.png);
+  background-repeat: no-repeat;
+  background-size: 50px;
+  /* border: 1px solid red; */
+  background-position: center;
+}
