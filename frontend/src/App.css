@@ -115,3 +115,7 @@ html{
   /* border: 1px solid red; */
   background-position: center;
 }
+
+input[type=file]::-webkit-file-upload-button { /* chromes and blink button */
+  cursor: pointer; 
+}

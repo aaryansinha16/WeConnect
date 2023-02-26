@@ -27,6 +27,7 @@ import {
 import { BsFillCameraVideoFill } from "react-icons/bs";
 import NavProfileCard from '../cards/NavProfileCard';
 
+
 const Navbar = () => {
 
     const {colorMode, toggleColorMode} = useColorMode()

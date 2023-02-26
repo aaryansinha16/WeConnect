@@ -17,14 +17,11 @@ const LoginTab = ({onClose}) => {
   }
 
   const handleFormSubmit = (from) => {
-    console.log(from)
     if(from === 'guest'){
-      console.log('this is from guest', {email : 'guest@gmail.com', password: '123'})
       onClose()
       return
     }
 
-    console.log(formData, 'this is form data')
     var flag = false
     // formData.email.map((el) => el == '@' && (flag = true))
     for(var i = 0; i<formData.email.length ; i++){
@@ -50,8 +47,26 @@ const LoginTab = ({onClose}) => {
     }
 
     handlePost()
-    .then((res) => console.log(res, 'this is response'))
-    .catch((e) => console.log(e, 'this is error')) 
+    .then((res) => {
+      localStorage.setItem("we-connect-user-data", JSON.stringify(res.data))
+      toast({
+        status: 'success',
+        title: 'Hurray! Login successfull',
+        description : 'Keep chatting!',
+        duration : 5000,
+        isClosable : true
+      })
+      onClose()
+    })
+    .catch((e) => {
+      console.error(e)
+      toast({
+        status : 'error', 
+        title : "Something went wrong, please try again later",
+        duration : 4000,
+        isClosable : true
+      })
+    }) 
     // console.log(formData)
   }
 
