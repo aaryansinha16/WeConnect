@@ -1,10 +1,21 @@
 import { Avatar, AvatarBadge, Flex, HStack, Text, useColorMode, VStack } from '@chakra-ui/react'
 import React from 'react'
 
-const ChatCard = () => {
+const ChatCard = ({
+    groupChatType,
+    users,
+    updatedAt,
+    name,
+    recentMessage
+}) => {
     const {colorMode} = useColorMode()
 
-    let str = 'Hey there!, How its going on for you? Hope you are doing well!'
+    let str = 'Start chatting!'
+
+    //? Logic for last updated chat time
+    let updatedTime = new Date(updatedAt).toLocaleTimeString()
+    let timeZone = updatedTime[updatedTime.length -2] == "A" ? "AM" : "PM"
+    updatedTime = updatedTime[5] == ":" ? updatedTime.slice(0, 5)  : updatedTime.slice(0, 4)
 
   return (
     <Flex
@@ -39,14 +50,14 @@ const ChatCard = () => {
                     alignItems='flex-start'
                     justifyContent='center'
                 >
-                    <Text fontSize='16px' color={colorMode == 'dark' ? 'white' : 'black'}>Tejas Sinha</Text>
-                    <Text fontSize='12px' color={colorMode == 'dark' ? 'gray.400' : 'gray.500'}>tejassinha12@gmail.com</Text>
+                    <Text fontSize='16px' color={colorMode == 'dark' ? 'white' : 'black'}>{groupChatType ? name : users[0].userName}</Text>
+                    <Text fontSize='12px' color={colorMode == 'dark' ? 'gray.400' : 'gray.500'}>{groupChatType ? `${users.length} members` : users[0].email}</Text>
                 </VStack>
-                <Text fontSize='14px' color={colorMode == 'dark' ? 'gray.200' : 'gray.800'}>{str.length > 22 ? str.split('').slice(0,22).join('') + "..." : str }</Text>
+                <Text fontSize='14px' color={colorMode == 'dark' ? 'gray.200' : 'gray.800'}>{recentMessage ? recentMessage.length > 22 ? recentMessage.split('').slice(0,22).join('') + "..." : recentChat : str }</Text>
             </VStack>
         </HStack>
 
-        <Text>16:25</Text>
+        <Text fontSize='sm'>{updatedTime + " " + timeZone}</Text>
     </Flex>
   )
 }

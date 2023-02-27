@@ -1,10 +1,23 @@
 import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Flex, Text, useColorMode, VStack } from '@chakra-ui/react'
-import React from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import ChatCard from '../cards/ChatCard'
 import Search from '../cards/Search'
+import axios from 'axios'
 
+let userData = JSON.parse(localStorage.getItem('we-connect-user-data'))
 const ChatList = () => {
   const {colorMode} = useColorMode()
+  const [allChat , setAllChat] = useState([])
+
+  useEffect(() => {
+    axios.get('http://localhost:3000/chat' , {
+      headers : {
+        Authorization : userData.token
+      }
+    })
+    .then((res) => setAllChat(res.data))
+  }, [])
+  
   return (
     <Flex
       className={colorMode == 'dark' ? 'chatListDark' : 'chatListLight'}
@@ -30,10 +43,12 @@ const ChatList = () => {
               <AccordionIcon />
             </AccordionButton>
           <AccordionPanel pb={4} >
-            <ChatCard />
-            <ChatCard />
-            <ChatCard />
-            <ChatCard />
+            {/* <ChatCard /> */}
+            {
+              allChat?.map((el) => (
+                <ChatCard key={el._id} {...el}/>
+              ))
+            }
           </AccordionPanel>
         </AccordionItem>
 
@@ -71,4 +86,4 @@ const ChatList = () => {
   )
 }
 
-export default ChatList
+export default memo(ChatList)
