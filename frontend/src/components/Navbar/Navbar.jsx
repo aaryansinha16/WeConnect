@@ -42,85 +42,45 @@ const Navbar = () => {
     const [y, setY] = React.useState(0);
     const height = ref.current ? ref.current.getBoundingClientRect() : 0;
 
-    // const { scrollY } = useViewportScroll();
-    // React.useEffect(() => {
-    //     return scrollY.onChange(() => setY(scrollY.get()));
-    // }, [scrollY]);
 
-    const SponsorButton = (
-        <Box
-          display={{ base: "none", md: "flex" }}
-          alignItems="center"
-          as="a"
-          aria-label="Sponsor Choc UI on Open Collective"
-          href={""}
-          target="_blank"
-          rel="noopener noreferrer"
-          bg="gray.50"
-          borderWidth="1px"
-          borderColor="gray.200"
-          px="1em"
-          minH="36px"
-          rounded="md"
-          fontSize="sm"
-          color="gray.800"
-          outline="0"
-          transition="all 0.3s"
-          _hover={{
-            bg: "gray.100",
-            borderColor: "gray.300",
-          }}
-          _active={{
-            borderColor: "gray.200",
-          }}
-          _focus={{
-            boxShadow: "outline",
-          }}
-          ml={5}
+
+    const MobileNavContent = (
+      <VStack
+        pos="absolute"
+        top={0}
+        left={0}
+        right={0}
+        display={mobileNav.isOpen ? "flex" : "none"}
+        flexDirection="column"
+        p={2}
+        pb={4}
+        m={2}
+        bg={bg}
+        spacing={3}
+        rounded="sm"
+        shadow="sm"
+      >
+        <CloseButton
+          aria-label="Close menu"
+          justifySelf="self-start"
+          onClick={mobileNav.onClose}
+        />
+        <Button w="full" variant="ghost" leftIcon={<AiFillHome />}>
+          Dashboard
+        </Button>
+        <Button
+          w="full"
+          variant="solid"
+          colorScheme="brand"
+          leftIcon={<AiOutlineInbox />}
         >
-          <Icon as={FaHeart} w="4" h="4" color="red.500" mr="2" />
-          <Box as="strong" lineHeight="inherit" fontWeight="semibold">
-            Sponsor
-          </Box>
-        </Box>
-      );
-      const MobileNavContent = (
-        <VStack
-          pos="absolute"
-          top={0}
-          left={0}
-          right={0}
-          display={mobileNav.isOpen ? "flex" : "none"}
-          flexDirection="column"
-          p={2}
-          pb={4}
-          m={2}
-          bg={bg}
-          spacing={3}
-          rounded="sm"
-          shadow="sm"
-        >
-          <CloseButton
-            aria-label="Close menu"
-            justifySelf="self-start"
-            onClick={mobileNav.onClose}
-          />
-          <Button w="full" variant="ghost" leftIcon={<AiFillHome />}>
-            Dashboard
-          </Button>
-          <Button
-            w="full"
-            variant="solid"
-            colorScheme="brand"
-            leftIcon={<AiOutlineInbox />}
-          >
-            Inbox
-          </Button>
-          <Button w="full" variant="ghost" leftIcon={<BsFillCameraVideoFill />}>
-            Videos
-          </Button>
-        </VStack>
-      );
+          Inbox
+        </Button>
+        <Button w="full" variant="ghost" leftIcon={<BsFillCameraVideoFill />}>
+          Videos
+        </Button>
+      </VStack>
+    );
 
   return (
     <Box pos="relative"

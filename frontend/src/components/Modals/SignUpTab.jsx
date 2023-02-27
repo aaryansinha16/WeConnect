@@ -11,7 +11,8 @@ const SignUpTab = ({onClose}) => {
 
   const [avatar , setAvatar] = useState("abc")
   const [visb , setVisb] = useState(false)
-  const [loading ,setLoading ] = useState(false)
+  const [avatarLoading ,setAvatarLoading ] = useState(false)
+  const [loading , setLoading ] = useState(false)
 
   const [formData , setFormData] = useState({
     userName : "",
@@ -21,7 +22,7 @@ const SignUpTab = ({onClose}) => {
   })
 
   function handleChangeFile(avatar){
-    setLoading(true)
+    setAvatarLoading(true)
     if(avatar == undefined){
       toast({
         title : "Invalid image type",
@@ -47,7 +48,7 @@ const SignUpTab = ({onClose}) => {
           ...formData,
           avatar : res.data.url
         })
-        setLoading(false)
+        setAvatarLoading(false)
         toast({
           title : 'Uploaded profile image successfully',
           status : 'success',
@@ -63,6 +64,7 @@ const SignUpTab = ({onClose}) => {
           isClosable : true,
           status : 'error'
         })
+        setAvatarLoading(false)
       })
       
     }
@@ -73,15 +75,16 @@ const SignUpTab = ({onClose}) => {
   }
 
   const handleSubmit = (from) => {
+    setLoading(true)
     if(from === 'guest'){
       console.log('this is from guest', {email : 'guest@gmail.com', password: '123'})
+      setLoading(false)
       onClose()
       return
     }
 
     console.log(formData, 'this is form data')
     var flag = false
-    // formData.email.map((el) => el == '@' && (flag = true))
     for(var i = 0; i<formData.email.length ; i++){
       if(formData.email[i] == '@') flag = true
     }
@@ -92,6 +95,7 @@ const SignUpTab = ({onClose}) => {
         duration : 5000,
         isClosable : true
       })
+      setLoading(false)
       return
     }
 
@@ -102,6 +106,7 @@ const SignUpTab = ({onClose}) => {
         duration : 5000,
         isClosable : true
       })
+      setLoading(false)
     }
 
     handleSignup()
@@ -114,6 +119,7 @@ const SignUpTab = ({onClose}) => {
         duration : 5000,
         isClosable : true
       })
+      setLoading(false)
       onClose()
     })
     .catch((e) => {
@@ -124,6 +130,7 @@ const SignUpTab = ({onClose}) => {
         duration : 4000,
         isClosable : true
       })
+      setLoading(false)
     })
   }
 
@@ -138,7 +145,7 @@ const SignUpTab = ({onClose}) => {
         <Avatar src={avatar} size='2xl' onMouseEnter={() => setVisb(true)} onMouseLeave={() => setVisb(false)} filter={visb ? 'brightness(60%)' : 'none'} />
       </Box>
       {
-        loading ? 
+        avatarLoading ? 
         <label style={{ width: '80px' , position: 'absolute' , transform: 'translate(15px, 30px)' }} >
           <Spinner 
             thickness='4px'
@@ -195,7 +202,7 @@ const SignUpTab = ({onClose}) => {
         w='100%'
         pt={4}
       >
-        <Button variant='solid' colorScheme='green' alignContent='center' gap='10px' onClick={() => handleSubmit()}>
+        <Button variant='solid' colorScheme='green' alignContent='center' gap='10px' onClick={() => handleSubmit()} isLoading={loading}>
           Create Account
           <Tooltip label="If you don't upload an avatar/profile picture, then a random generated image would be added" aria-label='Info'>
             <InfoIcon />

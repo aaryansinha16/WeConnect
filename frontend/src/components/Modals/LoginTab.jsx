@@ -11,19 +11,21 @@ const LoginTab = ({onClose}) => {
     email : "",
     password : ""
   })
+  const [loading ,setLoading] = useState(false)
 
   async function handlePost(){
     return await axios.post('http://localhost:3000/auth/login', formData)
   }
 
   const handleFormSubmit = (from) => {
+    setLoading(true)
     if(from === 'guest'){
+      setLoading(false)
       onClose()
       return
     }
 
     var flag = false
-    // formData.email.map((el) => el == '@' && (flag = true))
     for(var i = 0; i<formData.email.length ; i++){
       if(formData.email[i] == '@') flag = true
     }
@@ -34,6 +36,7 @@ const LoginTab = ({onClose}) => {
         duration : 5000,
         isClosable : true
       })
+      setLoading(false)
       return
     }
 
@@ -44,6 +47,7 @@ const LoginTab = ({onClose}) => {
         duration : 5000,
         isClosable : true
       })
+      setLoading(false)
     }
 
     handlePost()
@@ -56,6 +60,7 @@ const LoginTab = ({onClose}) => {
         duration : 5000,
         isClosable : true
       })
+      setLoading(false)
       onClose()
     })
     .catch((e) => {
@@ -66,6 +71,7 @@ const LoginTab = ({onClose}) => {
         duration : 4000,
         isClosable : true
       })
+      setLoading(false)
     }) 
     // console.log(formData)
   }
@@ -109,7 +115,7 @@ const LoginTab = ({onClose}) => {
         w='100%'
         pt={4}
       >
-        <Button variant='solid' colorScheme='green' onClick={handleFormSubmit}>Login</Button>
+        <Button variant='solid' colorScheme='green' onClick={handleFormSubmit} isLoading={loading}>Login</Button>
         <Button variant='outline' colorScheme='purple' onClick={() => handleFormSubmit("guest")}>Guest Login</Button>
       </HStack>
     </VStack>
