@@ -2,7 +2,7 @@ import { SearchIcon } from '@chakra-ui/icons'
 import { HStack, Input, useColorMode } from '@chakra-ui/react'
 import React from 'react'
 
-const Search = () => {
+const Search = ({setSearch}) => {
     const {colorMode} = useColorMode()
   return (
     <HStack
@@ -30,6 +30,7 @@ const Search = () => {
             fontSize='18px'
             p={0}
             color={colorMode == "light" ? "black" : "white"}
+            onChange={(e) => setSearch(e.target.value)}
         />
     </HStack>
   )

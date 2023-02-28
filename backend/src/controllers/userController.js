@@ -6,7 +6,7 @@ const searchUsers = asyncHandler(async (req, res) => {
     let temp = req.query.search ? 
         {
             $or: [
-                { name: { $regex: req.query.search, $options: "i" } },
+                { userName: { $regex: req.query.search, $options: "i" } },
 
                 { email: { $regex: req.query.search, $options: "i" } },
             ],

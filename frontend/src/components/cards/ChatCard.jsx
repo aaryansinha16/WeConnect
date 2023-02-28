@@ -6,7 +6,7 @@ const ChatCard = ({
     users,
     updatedAt,
     name,
-    recentMessage
+    recentMessage,
 }) => {
     const {colorMode} = useColorMode()
 
@@ -36,7 +36,7 @@ const ChatCard = ({
             alignItems='center'
             gap={1}
         >
-            <Avatar>
+            <Avatar src={users[0].avatar}>
                 <AvatarBadge boxSize='1.25em' bg='green.500' />
             </Avatar>
 
