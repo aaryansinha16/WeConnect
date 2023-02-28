@@ -1,31 +1,34 @@
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Button, Flex, Text, useColorMode, VStack } from '@chakra-ui/react'
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Button, Flex, Text, useColorMode, useDisclosure, VStack } from '@chakra-ui/react'
 import React, { memo, useEffect, useState } from 'react'
 import ChatCard from '../cards/ChatCard'
 import Search from '../cards/Search'
 import axios from 'axios'
 import SearchDropdown from './SearchDropdown/SearchDropdown'
 import { PlusSquareIcon } from '@chakra-ui/icons'
+import CreateGroup from '../Modals/CreateGroup'
 
-let userData = JSON.parse(localStorage.getItem('we-connect-user-data'))
+let userData = JSON.parse(localStorage.getItem('we-connect-user-data')) || undefined
 const ChatList = () => {
   const {colorMode} = useColorMode()
+  const {onOpen, isOpen, onClose} = useDisclosure()
   const [render, setRender] = useState(true)
   const [allChat , setAllChat] = useState([])
   const [search , setSearch] = useState("")
   const [searchList, setSearchList] = useState([])
 
   useEffect(() => {
-    axios.get('http://localhost:3000/chat' , {
-      headers : {
-        Authorization : userData.token
-      }
-    })
-    .then((res) => setAllChat(res.data))
-    console.log('test trigger')
+    if(userData != undefined){
+      axios.get('http://localhost:3000/chat' , {
+        headers : {
+          Authorization : userData.token
+        }
+      })
+      .then((res) => setAllChat(res.data))
+    }
   }, [render])
 
   useEffect(() => {
-    if(search.length != 0){
+    if(search.length != 0 && userData != undefined){
       axios.get(`http://localhost:3000/user?search=${search}`, {
         headers : {
           Authorization : userData.token
@@ -48,6 +51,11 @@ const ChatList = () => {
     }).catch((e) => console.log(e, 'addchat error'))
   }
   
+
+  const handleCreateGroup = () => {
+    onOpen()
+  }
+
   return (
     <Flex
       className={colorMode == 'dark' ? 'chatListDark' : 'chatListLight'}
@@ -63,10 +71,14 @@ const ChatList = () => {
       gap='10px'
     >
       <Box pb='10px' mt='-20px' w='100%'>
-        <Button w='100%' variant='solid' colorScheme='blue' gap='10px'>Create a new Group <PlusSquareIcon /></Button>
+        <Button w='100%' variant='solid' colorScheme='blue' gap='10px' onClick={() => handleCreateGroup()}>Create a new Group <PlusSquareIcon /></Button>
+        <CreateGroup isOpen={isOpen} onClose={onClose} setRender={setRender}/>
       </Box>
-      <Search setSearch={setSearch}/>
-      <SearchDropdown searchList={searchList} handleAddChat={handleAddChat}/>
+
+      <VStack w='100%' spacing={0} position='relative'>
+        <Search setSearch={setSearch}/>
+        <SearchDropdown searchList={searchList} handleAddChat={handleAddChat} search={search}/>
+      </VStack>
 
 
       <Accordion w='100%' allowMultiple defaultIndex={[0]}>
@@ -78,7 +90,6 @@ const ChatList = () => {
               <AccordionIcon />
             </AccordionButton>
           <AccordionPanel pb={4} >
-            {/* <ChatCard /> */}
             {
               allChat?.map((el) => (
                 <ChatCard key={el._id} {...el}/>

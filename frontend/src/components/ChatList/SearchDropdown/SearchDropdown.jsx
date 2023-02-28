@@ -1,11 +1,11 @@
-import { Box, useColorMode, VStack } from '@chakra-ui/react'
+import { Box, Text, useColorMode, VStack } from '@chakra-ui/react'
 import React from 'react'
 import DropCard from './DropCard'
 
-const SearchDropdown = ({searchList, handleAddChat}) => {
+const SearchDropdown = ({searchList, handleAddChat, search}) => {
   const {colorMode} = useColorMode()
   return (
-    <Box zIndex='10' w='inherit' position='absolute' mt='52px' pl={6} pr={6}>
+    <Box zIndex='10' w='110%' position='absolute' top='110%' pl={6} pr={6}>
       <VStack 
         spacing={1} 
         justifyContent='flex-start' 
@@ -19,6 +19,9 @@ const SearchDropdown = ({searchList, handleAddChat}) => {
           searchList?.map((el) => (
             <DropCard key={el._id} {...el} handleAddChat={handleAddChat}/>
           ))
+        }
+        {
+          searchList.length == 0 && search.length != 0 && <Text textAlign='center' backdropFilter='blur(3px)' w='100%' fontSize='18px' p={2}>"No Search results"</Text>
         }
       </VStack>
     </Box>

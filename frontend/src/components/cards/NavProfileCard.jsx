@@ -11,7 +11,7 @@ const NavProfileCard = () => {
             <Text color={colorMode == 'dark' ? 'whiteAlpha.600' : 'black'} fontSize='12px' className='typewriter'>{userData != undefined ? userData.user.email : "guest@gmail.com"}</Text>
         </VStack>
 
-        <Avatar src='https://bit.ly/dan-abramov'/>
+        <Avatar src={userData.user.avatar}/>
     </Flex>
   )
 }

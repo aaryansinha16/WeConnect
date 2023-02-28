@@ -6,13 +6,27 @@ const DropCard = ({
     avatar, 
     userName,
     email,
-    handleAddChat
+    handleAddChat,
+    page,
+    el,
+    selected
 }) => {
 
     const {colorMode} = useColorMode()
 
   return (
-    <HStack onClick={() => handleAddChat(_id)} cursor='pointer' transition='.2s linear' borderRadius='xl' justifyContent='flex-start' gap='15px' p={2} w='100%' _hover={{bg:'rgba(255, 255, 255, .20)'}}>
+    <HStack 
+        onClick={page != 'createGrp' ? () => handleAddChat(_id) : () => handleAddChat(el)} 
+        cursor='pointer' 
+        transition='.2s linear' 
+        borderRadius='xl' 
+        justifyContent='flex-start' 
+        gap='15px' 
+        p={2} 
+        w='100%' 
+        bg={selected == 'true' ? "purple.600" : 'transparent'}
+        _hover={{bg: selected != 'true' ? 'rgba(255, 255, 255, .20)' : 'purple.800'}}
+        >
         <Avatar src={avatar} />
         <VStack
             spacing={0}
