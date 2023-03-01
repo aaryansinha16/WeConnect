@@ -18,10 +18,11 @@ const ChatList = () => {
   const [search , setSearch] = useState("")
   const [searchList, setSearchList] = useState([])
   const [chatLoading , setChatLoading] = useState(false)
-
+  
   const {allChat, setAllChat} = useContext(allContext)
-
+  
   useEffect(() => {
+    let userData = JSON.parse(localStorage.getItem('we-connect-user-data')) || undefined
     if(userData != undefined){
       setChatLoading(true)
       axios.get(`${URL}/chat` , {
