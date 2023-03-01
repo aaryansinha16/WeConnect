@@ -4,6 +4,8 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import DropCard from '../ChatList/SearchDropdown/DropCard'
 
+let URL = 'https://chat-app-test.adaptable.app'
+let DEV_URL = 'http://localhost:3000'
 const userData = JSON.parse(localStorage.getItem("we-connect-user-data")) || undefined
 const CreateGroup = ({isOpen, onClose, setRender}) => {
     const toast = useToast()
@@ -18,7 +20,7 @@ const CreateGroup = ({isOpen, onClose, setRender}) => {
     //Function to handle search and results
     useEffect(() => {
         if(search.length != 0 && userData != undefined){
-          axios.get(`http://localhost:3000/user?search=${search}`, {
+          axios.get(`${URL}/user?search=${search}`, {
             headers : {
               Authorization : userData.token
             }
@@ -47,7 +49,7 @@ const CreateGroup = ({isOpen, onClose, setRender}) => {
             })
         }
 
-        await axios.post('http://localhost:3000/chat/create-group', {
+        await axios.post(`${URL}/chat/create-group`, {
             groupTitle: groupTitle,
             members : JSON.stringify(memberAdded.map((el) => el._id))
         }, {

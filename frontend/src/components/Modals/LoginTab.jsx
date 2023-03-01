@@ -2,6 +2,9 @@ import { Button, FormControl, HStack, Input, useColorMode, useToast, VStack } fr
 import React, { useState } from 'react'
 import axios from 'axios'
 
+let URL = 'https://chat-app-test.adaptable.app'
+let DEV_URL = 'http://localhost:3000'
+
 const LoginTab = ({onClose}) => {
 
   const {colorMode} = useColorMode()
@@ -14,7 +17,7 @@ const LoginTab = ({onClose}) => {
   const [loading ,setLoading] = useState(false)
 
   async function handlePost(){
-    return await axios.post('http://localhost:3000/auth/login', formData)
+    return await axios.post(`${URL}/auth/login`, formData)
   }
 
   const handleFormSubmit = (from) => {

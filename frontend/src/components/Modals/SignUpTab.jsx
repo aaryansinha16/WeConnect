@@ -4,6 +4,8 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import Gallery from '../../assets/image.png'
 
+let URL = 'https://chat-app-test.adaptable.app'
+let DEV_URL = 'http://localhost:3000'
 const SignUpTab = ({onClose}) => {
 
   const {colorMode} = useColorMode()
@@ -71,7 +73,7 @@ const SignUpTab = ({onClose}) => {
   }
 
   const handleSignup = async () => {
-    return await axios.post('http://localhost:3000/auth/signup', formData)
+    return await axios.post(`${URL}/auth/signup`, formData)
   }
 
   const handleSubmit = (from) => {

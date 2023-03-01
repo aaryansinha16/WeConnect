@@ -9,6 +9,8 @@ import CreateGroup from '../Modals/CreateGroup'
 import { allContext } from '../../contexts/AllContext'
 
 let userData = JSON.parse(localStorage.getItem('we-connect-user-data')) || undefined
+let URL = 'https://chat-app-test.adaptable.app'
+let DEV_URL = 'http://localhost:3000'
 const ChatList = () => {
   const {colorMode} = useColorMode()
   const {onOpen, isOpen, onClose} = useDisclosure()
@@ -22,7 +24,7 @@ const ChatList = () => {
   useEffect(() => {
     if(userData != undefined){
       setChatLoading(true)
-      axios.get('http://localhost:3000/chat' , {
+      axios.get(`${URL}/chat` , {
         headers : {
           Authorization : userData.token
         }
@@ -39,7 +41,7 @@ const ChatList = () => {
 
       // ? Below timeout is for debouncing search
       let getUsers = setTimeout(() => {
-        axios.get(`http://localhost:3000/user?search=${search}`, {
+        axios.get(`${URL}/user?search=${search}`, {
           headers : {
             Authorization : userData.token
           }
@@ -55,7 +57,7 @@ const ChatList = () => {
   }, [search])
 
   const handleAddChat = (participantId) => {
-    axios.post('http://localhost:3000/chat', {participantId}, {
+    axios.post(`${URL}/chat`, {participantId}, {
       headers : {
         Authorization : userData.token
       }
