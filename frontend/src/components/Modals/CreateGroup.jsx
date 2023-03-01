@@ -1,15 +1,16 @@
 import { CloseIcon, PlusSquareIcon, SmallCloseIcon } from '@chakra-ui/icons'
 import { Badge, Button, Flex, FormControl, Grid, IconButton, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Tooltip, useColorMode, useToast, VStack } from '@chakra-ui/react'
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { allContext } from '../../contexts/AllContext'
 import DropCard from '../ChatList/SearchDropdown/DropCard'
 
 let URL = 'https://chat-app-test.adaptable.app'
 let DEV_URL = 'http://localhost:3000'
-const userData = JSON.parse(localStorage.getItem("we-connect-user-data")) || undefined
 const CreateGroup = ({isOpen, onClose, setRender}) => {
     const toast = useToast()
     const {colorMode} = useColorMode()
+    let {user} = useContext(allContext)
 
     const [search, setSearch ] = useState("")
     const [searchList, setSearchList] = useState([])
@@ -19,15 +20,15 @@ const CreateGroup = ({isOpen, onClose, setRender}) => {
 
     //Function to handle search and results
     useEffect(() => {
-        if(search.length != 0 && userData != undefined){
+        if(search.length != 0 && user != undefined){
           axios.get(`${URL}/user?search=${search}`, {
             headers : {
-              Authorization : userData.token
+              Authorization : user.token
             }
           })
           .then((res) => setSearchList(res.data))
         }else setSearchList([])
-      }, [search])
+      }, [search, user])
 
     //Main function to create the group
     const handleCreateGroup = async () => {
@@ -54,7 +55,7 @@ const CreateGroup = ({isOpen, onClose, setRender}) => {
             members : JSON.stringify(memberAdded.map((el) => el._id))
         }, {
             headers : {
-                Authorization : userData.token
+                Authorization : user.token
             }
         })
         .then((res) => {

@@ -1,5 +1,5 @@
 import { Box, Flex, HStack, useColorMode, useDisclosure } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import './App.css'
 import About from './components/About/About'
 import ChatList from './components/ChatList/ChatList'
@@ -7,17 +7,18 @@ import MainChat from './components/MainChat/MainChat'
 import AuthModal from './components/Modals/AuthModal'
 import Navbar from './components/Navbar/Navbar'
 import {io} from 'socket.io-client'
+import { allContext } from './contexts/AllContext'
 
 
 // const Socket = io.connect('https://chat-app-test.adaptable.app/', {transports: ['polling']})
 // https://api.dicebear.com/5.x/adventurer-neutral/svg?seed=
 function App() {
   const {colorMode} = useColorMode()
-  
   const { isOpen, onOpen, onClose } = useDisclosure()
+  let {user} = useContext(allContext)
 
   useEffect(() => {
-    let userData = JSON.parse(localStorage.getItem("we-connect-user-data")) || undefined
+    let userData = JSON.parse(localStorage.getItem('we-connect-user-data')) || undefined
     if(userData === undefined) onOpen()
 
     // Socket.on("new-connection", (d) => {

@@ -1,8 +1,9 @@
 import { InfoIcon } from '@chakra-ui/icons'
 import { Avatar, Box, Button, Flex, HStack, Input, Spinner, Tooltip, useColorMode, useToast, VStack } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import axios from 'axios'
 import Gallery from '../../assets/image.png'
+import { allContext } from '../../contexts/AllContext'
 
 let URL = 'https://chat-app-test.adaptable.app'
 let DEV_URL = 'http://localhost:3000'
@@ -10,6 +11,7 @@ const SignUpTab = ({onClose}) => {
 
   const {colorMode} = useColorMode()
   const toast = useToast()
+  const {setGlobalRender} = useContext(allContext)
 
   const [avatar , setAvatar] = useState("abc")
   const [visb , setVisb] = useState(false)
@@ -37,7 +39,6 @@ const SignUpTab = ({onClose}) => {
 
     if(avatar.type == 'image/jpeg' || avatar.type == 'image/png'){
 
-      console.log(avatar.type)
       let data = new FormData()
       data.append("file" , avatar)
       data.append('upload_preset', 'weconnect')
@@ -81,10 +82,11 @@ const SignUpTab = ({onClose}) => {
     if(from === 'guest'){
       console.log('this is from guest', {email : 'guest@gmail.com', password: '123'})
       setLoading(false)
+      setGlobalRender((prev) => !prev)
       onClose()
       return
     }
-
+    
     console.log(formData, 'this is form data')
     var flag = false
     for(var i = 0; i<formData.email.length ; i++){
@@ -100,7 +102,7 @@ const SignUpTab = ({onClose}) => {
       setLoading(false)
       return
     }
-
+    
     if(formData.email.length == 0 || formData.password.length == 0 || formData.userName.length == 0){
       toast({
         title: "Enter a vaild email Or password",
@@ -110,7 +112,7 @@ const SignUpTab = ({onClose}) => {
       })
       setLoading(false)
     }
-
+    
     handleSignup()
     .then((res) => {
       localStorage.setItem("we-connect-user-data", JSON.stringify(res.data))
@@ -121,10 +123,12 @@ const SignUpTab = ({onClose}) => {
         duration : 5000,
         isClosable : true
       })
+      setGlobalRender((prev) => !prev)
       setLoading(false)
       onClose()
     })
     .catch((e) => {
+      setGlobalRender((prev) => !prev)
       console.error(e)
       toast({
         status : 'error', 

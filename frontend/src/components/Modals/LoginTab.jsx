@@ -1,6 +1,7 @@
 import { Button, FormControl, HStack, Input, useColorMode, useToast, VStack } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import axios from 'axios'
+import { allContext } from '../../contexts/AllContext'
 
 let URL = 'https://chat-app-test.adaptable.app'
 let DEV_URL = 'http://localhost:3000'
@@ -9,6 +10,7 @@ const LoginTab = ({onClose}) => {
 
   const {colorMode} = useColorMode()
   const toast = useToast()
+  const {setGlobalRender} = useContext(allContext)
 
   const [formData , setFormData] = useState({
     email : "",
@@ -23,6 +25,7 @@ const LoginTab = ({onClose}) => {
   const handleFormSubmit = (from) => {
     setLoading(true)
     if(from === 'guest'){
+      setGlobalRender((prev) => !prev)
       setLoading(false)
       onClose()
       return
@@ -64,6 +67,7 @@ const LoginTab = ({onClose}) => {
         isClosable : true
       })
       setLoading(false)
+      setGlobalRender((prev) => !prev)
       onClose()
     })
     .catch((e) => {
@@ -74,6 +78,7 @@ const LoginTab = ({onClose}) => {
         duration : 4000,
         isClosable : true
       })
+      setGlobalRender((prev) => !prev)
       setLoading(false)
     }) 
     // console.log(formData)

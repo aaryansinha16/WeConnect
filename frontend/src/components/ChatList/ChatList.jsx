@@ -8,7 +8,6 @@ import { PlusSquareIcon } from '@chakra-ui/icons'
 import CreateGroup from '../Modals/CreateGroup'
 import { allContext } from '../../contexts/AllContext'
 
-let userData = JSON.parse(localStorage.getItem('we-connect-user-data')) || undefined
 let URL = 'https://chat-app-test.adaptable.app'
 let DEV_URL = 'http://localhost:3000'
 const ChatList = () => {
@@ -19,15 +18,14 @@ const ChatList = () => {
   const [searchList, setSearchList] = useState([])
   const [chatLoading , setChatLoading] = useState(false)
   
-  const {allChat, setAllChat} = useContext(allContext)
+  const {allChat, setAllChat, user} = useContext(allContext)
   
   useEffect(() => {
-    let userData = JSON.parse(localStorage.getItem('we-connect-user-data')) || undefined
-    if(userData != undefined){
+    if(user != undefined){
       setChatLoading(true)
       axios.get(`${URL}/chat` , {
         headers : {
-          Authorization : userData.token
+          Authorization : user.token
         }
       })
       .then((res) => {
@@ -35,16 +33,16 @@ const ChatList = () => {
         setAllChat(res.data)
       }).catch((e) => setChatLoading(false))
     }
-  }, [render])
+  }, [render, user])
 
   useEffect(() => {
-    if(search.length != 0 && userData != undefined){
+    if(search.length != 0 && user != undefined){
 
       // ? Below timeout is for debouncing search
       let getUsers = setTimeout(() => {
         axios.get(`${URL}/user?search=${search}`, {
           headers : {
-            Authorization : userData.token
+            Authorization : user.token
           }
         })
         .then((res) => {
@@ -55,12 +53,12 @@ const ChatList = () => {
       return () => clearTimeout(getUsers) // ? Clearing timeout for using useEffect correctly
 
     }else setSearchList([])
-  }, [search])
+  }, [search, user])
 
   const handleAddChat = (participantId) => {
     axios.post(`${URL}/chat`, {participantId}, {
       headers : {
-        Authorization : userData.token
+        Authorization : user.token
       }
     })
     .then((res) => {
