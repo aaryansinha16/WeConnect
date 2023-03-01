@@ -18,3 +18,14 @@
 * Notifications (backend/frontend)
 * Read / unread / groups catagory wise display of chats (frontend)
 * END to END encryption (will try to implement this , ps: not on the level of whatsapp ofcourse) (backend)
+
+[![abc][dark]]()
+[![lig][light]]()
+[![src][search]]()
+[![grp][group]]()
+
+
+[dark]: /frontend/src/assets/dark.png
+[light]: /frontend/src/assets/light.png
+[search]: /frontend/src/assets/search.png
+[group]: /frontend/src/assets/group.png
