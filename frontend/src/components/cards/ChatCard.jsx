@@ -1,5 +1,6 @@
 import { Avatar, AvatarBadge, Flex, HStack, Text, useColorMode, VStack } from '@chakra-ui/react'
-import React from 'react'
+import React, { useContext } from 'react'
+import { allContext } from '../../contexts/AllContext'
 
 const ChatCard = ({
     groupChatType,
@@ -7,8 +8,10 @@ const ChatCard = ({
     updatedAt,
     name,
     recentMessage,
+    el
 }) => {
     const {colorMode} = useColorMode()
+    const {setSelectChat} = useContext(allContext)
 
     let str = 'Start chatting!'
 
@@ -19,6 +22,7 @@ const ChatCard = ({
 
   return (
     <Flex
+        onClick={() => setSelectChat(el)}
         cursor='pointer'
         justifyContent='space-between'
         alignItems='flex-start'

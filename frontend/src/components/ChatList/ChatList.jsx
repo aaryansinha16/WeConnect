@@ -1,40 +1,56 @@
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Button, Flex, Text, useColorMode, useDisclosure, VStack } from '@chakra-ui/react'
-import React, { memo, useEffect, useState } from 'react'
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Button, Flex, Spinner, Text, useColorMode, useDisclosure, VStack } from '@chakra-ui/react'
+import React, { memo, useContext, useEffect, useState } from 'react'
 import ChatCard from '../cards/ChatCard'
 import Search from '../cards/Search'
 import axios from 'axios'
 import SearchDropdown from './SearchDropdown/SearchDropdown'
 import { PlusSquareIcon } from '@chakra-ui/icons'
 import CreateGroup from '../Modals/CreateGroup'
+import { allContext } from '../../contexts/AllContext'
 
 let userData = JSON.parse(localStorage.getItem('we-connect-user-data')) || undefined
 const ChatList = () => {
   const {colorMode} = useColorMode()
   const {onOpen, isOpen, onClose} = useDisclosure()
   const [render, setRender] = useState(true)
-  const [allChat , setAllChat] = useState([])
   const [search , setSearch] = useState("")
   const [searchList, setSearchList] = useState([])
+  const [chatLoading , setChatLoading] = useState(false)
+
+  const {allChat, setAllChat} = useContext(allContext)
 
   useEffect(() => {
     if(userData != undefined){
+      setChatLoading(true)
       axios.get('http://localhost:3000/chat' , {
         headers : {
           Authorization : userData.token
         }
       })
-      .then((res) => setAllChat(res.data))
+      .then((res) => {
+        setChatLoading(false)
+        setAllChat(res.data)
+      }).catch((e) => setChatLoading(false))
     }
   }, [render])
 
   useEffect(() => {
     if(search.length != 0 && userData != undefined){
-      axios.get(`http://localhost:3000/user?search=${search}`, {
-        headers : {
-          Authorization : userData.token
-        }
-      })
-      .then((res) => setSearchList(res.data))
+
+      // ? Below timeout is for debouncing search
+      let getUsers = setTimeout(() => {
+        axios.get(`http://localhost:3000/user?search=${search}`, {
+          headers : {
+            Authorization : userData.token
+          }
+        })
+        .then((res) => {
+          setSearchList(res.data)
+        })
+      }, 500)
+
+      return () => clearTimeout(getUsers) // ? Clearing timeout for using useEffect correctly
+
     }else setSearchList([])
   }, [search])
 
@@ -50,7 +66,6 @@ const ChatList = () => {
       console.log(res.data, 'this is add chat')
     }).catch((e) => console.log(e, 'addchat error'))
   }
-  
 
   const handleCreateGroup = () => {
     onOpen()
@@ -91,9 +106,12 @@ const ChatList = () => {
             </AccordionButton>
           <AccordionPanel pb={4} >
             {
+              !chatLoading ? 
               allChat?.map((el) => (
-                <ChatCard key={el._id} {...el}/>
+                <ChatCard key={el._id} {...el} el={el}/>
               ))
+              : 
+              <Spinner size='lg'/>
             }
           </AccordionPanel>
         </AccordionItem>
