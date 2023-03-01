@@ -8,15 +8,16 @@ const MainChat = () => {
   const {colorMode} = useColorMode()
   const {selectChat} = useContext(allContext)
 
-
+  console.log(selectChat, Object.keys(selectChat).length)
   if(Object.keys(selectChat).length > 0){
     return (
       <VStack
+        display={{base : Object.keys(selectChat).length != 0 ? "flex" : 'none' , md : 'flex'}}
         bg={colorMode == 'dark' ? '#1d1e24' : 'whitesmoke'}
         borderRadius='30px 30px 0px 0px'
         alignItems='center'
         justifyContent='flex-start'
-        w='52%'
+        w={{base: '100%', md: '65%', lg : '52%'}}
         h='calc(100vh - 90px)'
         overflowY='scroll'
         className={colorMode == 'dark' ? 'mainChatDark' : 'mainChatLight'}
@@ -63,11 +64,12 @@ const MainChat = () => {
 
   return (
     <VStack
+      display={{base : Object.keys(selectChat).length != 0 ? "flex" : 'none' , md : 'flex'}}
       bg={colorMode == 'dark' ? '#1d1e24' : 'whitesmoke'}
       borderRadius='30px 30px 0px 0px'
       alignItems='center'
       justifyContent='flex-start'
-      w='52%'
+      w={{base: '100%', md: '72%', lg : '52%'}}
       h='calc(100vh - 90px)'
       overflowY='scroll'
       className={colorMode == 'dark' ? 'mainChatDark' : 'mainChatLight'}

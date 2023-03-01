@@ -40,7 +40,7 @@ const ChatCard = ({
             alignItems='center'
             gap={1}
         >
-            <Avatar src={users[0].avatar}>
+            <Avatar src={users[0].avatar} size='md'>
                 <AvatarBadge boxSize='1.25em' bg='green.500' />
             </Avatar>
 
@@ -54,10 +54,10 @@ const ChatCard = ({
                     alignItems='flex-start'
                     justifyContent='center'
                 >
-                    <Text fontSize='16px' color={colorMode == 'dark' ? 'white' : 'black'}>{groupChatType ? name : users[0].userName}</Text>
+                    <Text fontSize='14px' color={colorMode == 'dark' ? 'white' : 'black'}>{groupChatType ? name : users[0].userName}</Text>
                     <Text fontSize='12px' color={colorMode == 'dark' ? 'gray.400' : 'gray.500'}>{groupChatType ? `${users.length} members` : users[0].email}</Text>
                 </VStack>
-                <Text fontSize='14px' color={colorMode == 'dark' ? 'gray.200' : 'gray.800'}>{recentMessage ? recentMessage.length > 22 ? recentMessage.split('').slice(0,22).join('') + "..." : recentChat : str }</Text>
+                <Text fontSize='12px' color={colorMode == 'dark' ? 'gray.200' : 'gray.800'}>{recentMessage ? recentMessage.length > 22 ? recentMessage.split('').slice(0,22).join('') + "..." : recentChat : str }</Text>
             </VStack>
         </HStack>
 

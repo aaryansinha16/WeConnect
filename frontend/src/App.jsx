@@ -35,7 +35,7 @@ function App() {
         // m='auto'
         bg={colorMode == 'dark' ? "#20232b" : 'white'}
         pt='10px'
-        gap='15px'
+        gap={{md : '5px', lg: '15px'}}
       >
         <ChatList />
         <MainChat />

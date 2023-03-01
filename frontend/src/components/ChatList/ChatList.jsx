@@ -18,7 +18,7 @@ const ChatList = () => {
   const [searchList, setSearchList] = useState([])
   const [chatLoading , setChatLoading] = useState(false)
   
-  const {allChat, setAllChat, user} = useContext(allContext)
+  const {allChat, setAllChat, user, selectChat} = useContext(allContext)
   
   useEffect(() => {
     if(user != undefined){
@@ -75,18 +75,19 @@ const ChatList = () => {
   return (
     <Flex
       className={colorMode == 'dark' ? 'chatListDark' : 'chatListLight'}
+      display={{base : Object.keys(selectChat).length > 0 ? 'none' : 'flex' , md : 'flex'}}
       flexDir='column'
       justifyContent='flex-start'
       alignItems='center'
-      w='25%'
+      w={{base :'100%' , md: '30%'}}
       // bg={"#20232b"}
-      p={'20px'}
+      p={{base : '20px', md: '5px'}}
       spacing='30px'
       h='calc(100vh - 80px)'
       overflowY='scroll'
       gap='10px'
     >
-      <Box pb='10px' mt='-20px' w='100%'>
+      <Box pb='10px' mt='0px' w='100%'>
         <Button w='100%' variant='solid' colorScheme='blue' gap='10px' onClick={() => handleCreateGroup()}>Create a new Group <PlusSquareIcon /></Button>
         <CreateGroup isOpen={isOpen} onClose={onClose} setRender={setRender}/>
       </Box>
@@ -105,7 +106,7 @@ const ChatList = () => {
               </Box>
               <AccordionIcon />
             </AccordionButton>
-          <AccordionPanel pb={4} >
+          <AccordionPanel pb={4} p={0}>
             {
               !chatLoading ? 
               allChat?.map((el) => (
