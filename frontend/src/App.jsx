@@ -1,4 +1,4 @@
-import { Box, Flex, HStack, useColorMode, useDisclosure } from '@chakra-ui/react'
+import { Box, Button, Flex, HStack, useColorMode, useDisclosure } from '@chakra-ui/react'
 import { useContext, useEffect, useState } from 'react'
 import './App.css'
 import About from './components/About/About'
@@ -8,6 +8,7 @@ import AuthModal from './components/Modals/AuthModal'
 import Navbar from './components/Navbar/Navbar'
 import {io} from 'socket.io-client'
 import { allContext } from './contexts/AllContext'
+import axios from 'axios'
 
 
 // const Socket = io.connect('https://chat-app-test.adaptable.app/', {transports: ['polling']})
@@ -25,9 +26,21 @@ function App() {
     //   console.log("Server said: ", d)
     // })
   }, [])
+
+  function testCookie(){
+    axios.get('https://chat-app-test.adaptable.app/logout')
+    .then((res) => console.log(res))
+  }
+
+  // function readCookie(){
+  //   axios.get('http://localhost:3000')
+  //   .then((res) => console.log(res))
+  // }
   return (
     <Box className="App" bg={colorMode == "dark" ? "black" : "teal"} p='7px' h='100vh' overflow='hidden'>
       <Navbar />
+      <Button onClick={testCookie}>logout</Button>
+      {/* <Button onClick={readCookie}>Test</Button> */}
       <Flex
         justifyContent='flex-start'
         alignItems='flex-start'
