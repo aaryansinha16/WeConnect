@@ -11,6 +11,17 @@ const loginUser = asyncHandler(async (req, res) => {
         let token = jwt.sign({id : user._id}, "WE_CON_SECRET" , {
             expiresIn : '7d'
         })
+
+        let expTime = new Date()
+        expTime.setDate(expTime.getDate() + 7) 
+
+        let cookieOptions = {
+            httpOnly : true,
+            expires : expTime
+        }
+
+        res.cookie("weConnectUserCookie", token, cookieOptions)
+        console.log(res.cookie, req.cookies, 'AUTH CONTROLLER')
         return res.status(200).send({user, token})
         
     }else{
@@ -39,6 +50,17 @@ const signUpUser = asyncHandler(async (req, res) => {
         let token = jwt.sign({id : userCreate._id}, "WE_CON_SECRET" , {
             expiresIn : '7d'
         })
+
+        let expTime = new Date()
+        expTime.setDate(expTime.getDate() + 7) 
+
+        let cookieOptions = {
+            httpOnly : true,
+            expires : expTime
+        }
+
+        res.cookie("weConnectUserCookie", token, cookieOptions)
+        
         return res.status(200).send({
             user: userCreate,
             token

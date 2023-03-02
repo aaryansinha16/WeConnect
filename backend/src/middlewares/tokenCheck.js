@@ -3,10 +3,11 @@ const jwt = require("jsonwebtoken")
 const userModel = require('../models/user.model')
 
 const tokenCheck = asyncHandler(async ( req, res, next ) => {
-    if(req.headers.authorization){
+    // console.log("TOKEN CHECK",req.cookies)
+    if(req.cookies.weConnectUserCookie){
         try{
             // console.log("TOKEN_CHECK : ", req.headers.authorization)
-            let token = req.headers.authorization
+            let token = req.cookies.weConnectUserCookie
     
             const decodedId = jwt.verify(token, "WE_CON_SECRET")
             req.user = await userModel.findById(decodedId.id).select('-password')
