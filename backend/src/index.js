@@ -41,20 +41,23 @@ const io = new Server(server, {
 })
 
 //Test cookie route
-// app.get('/', (req, res) => {
-//     console.log("COOKIE:", req.cookies)
-//     res.send(req.cookies)
-// })
-// app.post('/', (req, res) => {
-//     let exp = new Date()
-//     exp.setSeconds(exp.getSeconds() + 100)
-//     let cookieOptions = {
-//         httpOnly : true,
-//         expires : exp
-//     }
-//     res.cookie('testCookie', "aaryan", cookieOptions)
-//     res.send("cookie created")
-// })
+app.get('/', (req, res) => {
+    console.log("COOKIE:", req.cookies)
+    res.send({
+        cookie: req.cookies,
+        message: 'working'
+    })
+})
+app.post('/', (req, res) => {
+    let exp = new Date()
+    exp.setSeconds(exp.getSeconds() + 100)
+    let cookieOptions = {
+        httpOnly : true,
+        expires : exp
+    }
+    res.cookie('testCookie', "aaryan", cookieOptions)
+    res.send("cookie created")
+})
 
 app.get('/logout', (req, res) => {
     res.clearCookie("weConnectUserCookie")
