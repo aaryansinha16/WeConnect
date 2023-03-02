@@ -26,7 +26,13 @@ const app = express()
 
 app.use(express.json())
 var corsOptions = {
-    origin: 'https://we-connect-now.vercel.app',
+    origin: [
+        "https://we-connect-now.vercel.app",
+        "http://localhost:5173"
+    ],
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-csrf-token'], 
+    credentials: true, 
+    exposedHeaders: ['*', 'Authorization' ] 
     // optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 app.use(cors(corsOptions))
@@ -50,17 +56,20 @@ app.get('/', (req, res) => {
 })
 app.post('/', (req, res) => {
     let exp = new Date()
-    exp.setSeconds(exp.getSeconds() + 100)
+    exp.setDate(exp.getDate() + 10)
     let cookieOptions = {
         httpOnly : true,
-        expires : exp
+        expires : exp,
+        origin : 'https://we-connect-now.vercel.app',
+        sameSite : 'none'
     }
     res.cookie('testCookie', "aaryan", cookieOptions)
     res.send("cookie created")
 })
 
 app.get('/logout', (req, res) => {
-    res.clearCookie("weConnectUserCookie")
+    // console.log(req.cookies, req.headers)
+    res.clearCookie("testCookie")
     res.send("Logged out")
 })
 
