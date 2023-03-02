@@ -61,7 +61,8 @@ app.post('/', (req, res) => {
         httpOnly : true,
         expires : exp,
         origin : 'https://we-connect-now.vercel.app',
-        sameSite : 'none'
+        sameSite : 'none',
+        secure : true
     }
     res.cookie('testCookie', "aaryan", cookieOptions)
     res.send("cookie created")
