@@ -17,6 +17,7 @@ function App() {
   const {colorMode} = useColorMode()
   const { isOpen, onOpen, onClose } = useDisclosure()
   let {user} = useContext(allContext)
+  axios.defaults.withCredentials = true
 
   useEffect(() => {
     let userData = JSON.parse(localStorage.getItem('we-connect-user-data')) || undefined
@@ -28,19 +29,19 @@ function App() {
   }, [])
 
   function testCookie(){
-    axios.get('https://chat-app-test.adaptable.app/logout')
+    axios.post('http://localhost:3000')
     .then((res) => console.log(res))
   }
 
-  // function readCookie(){
-  //   axios.get('http://localhost:3000')
-  //   .then((res) => console.log(res))
-  // }
+  function readCookie(){
+    axios.get('http://localhost:3000')
+    .then((res) => console.log(res))
+  }
   return (
     <Box className="App" bg={colorMode == "dark" ? "black" : "teal"} p='7px' h='100vh' overflow='hidden'>
       <Navbar />
-      <Button onClick={testCookie}>logout</Button>
-      {/* <Button onClick={readCookie}>Test</Button> */}
+      {/* <Button onClick={testCookie}>logout</Button>
+      <Button onClick={readCookie}>Test</Button> */}
       <Flex
         justifyContent='flex-start'
         alignItems='flex-start'

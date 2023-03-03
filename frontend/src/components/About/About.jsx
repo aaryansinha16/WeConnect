@@ -1,16 +1,16 @@
 import { Box } from '@chakra-ui/react'
 import React from 'react'
+import AboutCard from '../cards/AboutCard'
 
 const About = () => {
   return (
     <Box
       display={{base : 'none', lg : 'block'}}
-      // border='1px solid blue'
       w='20%'
-      h='500px'
-      // mt='100vh'
+      borderRadius='20px'
+      p={4}
     >
-      About
+      <AboutCard />
     </Box>
   )
 }

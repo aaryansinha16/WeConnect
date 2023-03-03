@@ -21,6 +21,7 @@
 
 [![abc][dark]]()
 [![lig][light]]()
+[![chatP][chatPage]]()
 [![src][search]]()
 [![grp][group]]()
 
@@ -29,3 +30,4 @@
 [light]: /frontend/src/assets/light.png
 [search]: /frontend/src/assets/search.png
 [group]: /frontend/src/assets/group.png
+[chatPage]: /frontend/src/assets/chatPage.png

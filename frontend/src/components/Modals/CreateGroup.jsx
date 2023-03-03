@@ -21,7 +21,7 @@ const CreateGroup = ({isOpen, onClose, setRender}) => {
     //Function to handle search and results
     useEffect(() => {
         if(search.length != 0 && user != undefined){
-          axios.get(`${URL}/user?search=${search}`, {
+          axios.get(`${DEV_URL}/user?search=${search}`, {
             headers : {
               Authorization : user.token
             }
@@ -50,7 +50,7 @@ const CreateGroup = ({isOpen, onClose, setRender}) => {
             })
         }
 
-        await axios.post(`${URL}/chat/create-group`, {
+        await axios.post(`${DEV_URL}/chat/create-group`, {
             groupTitle: groupTitle,
             members : JSON.stringify(memberAdded.map((el) => el._id))
         }, {

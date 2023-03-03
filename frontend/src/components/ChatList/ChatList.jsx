@@ -23,7 +23,7 @@ const ChatList = () => {
   useEffect(() => {
     if(user != undefined){
       setChatLoading(true)
-      axios.get(`${URL}/chat` , {
+      axios.get(`${DEV_URL}/chat` , {
         headers : {
           Authorization : user.token
         }
@@ -40,7 +40,7 @@ const ChatList = () => {
 
       // ? Below timeout is for debouncing search
       let getUsers = setTimeout(() => {
-        axios.get(`${URL}/user?search=${search}`, {
+        axios.get(`${DEV_URL}/user?search=${search}`, {
           headers : {
             Authorization : user.token
           }
@@ -56,7 +56,7 @@ const ChatList = () => {
   }, [search, user])
 
   const handleAddChat = (participantId) => {
-    axios.post(`${URL}/chat`, {participantId}, {
+    axios.post(`${DEV_URL}/chat`, {participantId}, {
       headers : {
         Authorization : user.token
       }

@@ -74,7 +74,7 @@ const SignUpTab = ({onClose}) => {
   }
 
   const handleSignup = async () => {
-    return await axios.post(`${URL}/auth/signup`, formData)
+    return await axios.post(`${DEV_URL}/auth/signup`, formData)
   }
 
   const handleSubmit = (from) => {

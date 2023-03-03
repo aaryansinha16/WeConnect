@@ -60,7 +60,7 @@ app.post('/', (req, res) => {
     let cookieOptions = {
         httpOnly : true,
         expires : exp,
-        origin : 'https://we-connect-now.vercel.app',
+        origin : 'http://localhost:5173',
         sameSite : 'none',
         secure : true
     }
@@ -69,7 +69,6 @@ app.post('/', (req, res) => {
 })
 
 app.get('/logout', (req, res) => {
-    // console.log(req.cookies, req.headers)
     res.clearCookie("testCookie")
     res.send("Logged out")
 })
@@ -80,10 +79,6 @@ app.use('/user', userRouter)
 app.use('/messages', messagesRouter)
 app.use('/chat', chatRouter)
 
-// Server test
-// app.get("/", (req, res) => {
-//     res.send("Server is working fine")
-// })
 
 
 var totalUser = 0
