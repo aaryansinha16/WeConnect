@@ -19,6 +19,7 @@
 * Read / unread / groups catagory wise display of chats (frontend)
 * END to END encryption (will try to implement this , ps: not on the level of whatsapp ofcourse) (backend)
 
+[![encrypt][encryption]]()
 [![abc][dark]]()
 [![lig][light]]()
 [![chatP][chatPage]]()
@@ -31,3 +32,4 @@
 [search]: /frontend/src/assets/search.png
 [group]: /frontend/src/assets/group.png
 [chatPage]: /frontend/src/assets/chatPage.png
+[encryption]: /frontend/src/assets/encryption.png
