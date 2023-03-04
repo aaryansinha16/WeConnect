@@ -10,6 +10,8 @@ import { decryptMessage, encryptMessage } from '../../encryption'
 
 let socket 
 let checkChat
+let URL = 'https://chat-app-test.adaptable.app'
+let DEV_URL = 'http://localhost:3000'
 const SingleChatBox = () => {
     const {colorMode} = useColorMode()
     const toast = useToast()
@@ -21,7 +23,7 @@ const SingleChatBox = () => {
     const [socketStatus, setSocketStatus] = useState(false)
 
     useEffect(() => {
-        socket = io('http://localhost:3000')
+        socket = io(URL)
         socket.emit("new-user-setup" , user.user)
         socket.on("connected", () => setSocketStatus(true))
         // socket.on("typing" , () =>)
