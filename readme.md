@@ -1,5 +1,8 @@
 ## we-connect
 # FEATURES IMPLEMENTED:
+* End to End encryption done (users messeges do not go to server side directly, they are encrypted with a key which is only accessable to client side. They are only decrypted once the messeges are fetched in client side using the key which was used for encrypting it)
+* Messenging DONE
+* Single/Group chat DONE
 * Authentication (JWT + cookies)
 * Profile Images using cloudinary (Users can upload their profile images)
 * Searching users from database 
@@ -11,13 +14,9 @@
 * Chat update time is dynamic
 
 ## Features to implement(remaining) : 
-
-* Messanging (backend) 
-* About details (frontend)
 * Responsiveness (frontend)
 * Notifications (backend/frontend)
 * Read / unread / groups catagory wise display of chats (frontend)
-* END to END encryption (will try to implement this , ps: not on the level of whatsapp ofcourse) (backend)
 
 [![encrypt][encryption]]()
 [![abc][dark]]()
