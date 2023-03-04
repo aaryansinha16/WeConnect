@@ -41,6 +41,7 @@ app.use(cookieParser())
 // SocketIO & Server 
 const server = http.createServer(app)
 const io = new Server(server, {
+    pingTimeout : 60000,
     cors: {
         origin: "*"
     }
@@ -81,16 +82,47 @@ app.use('/chat', chatRouter)
 
 
 
-var totalUser = 0
+// var totalUser = 0
 io.on("connection", (conn) => {
-    totalUser += 1
-    console.log("CONNECT", totalUser)
-    io.emit("new-connection", {userConnected : totalUser})
+    // totalUser += 1
+    // console.log("CONNECT", totalUser)
+    // io.emit("new-connection", {userConnected : totalUser})
 
-    conn.on("disconnect", () => {
-        totalUser -= 1
-        console.log("DISCONNECT", totalUser)
+    conn.on("new-user-setup", (userData) => {
+        // console.log(userData, 'USER DATA')
+        conn.join(userData._id)
+        conn.emit("user connected")
     })
+
+    conn.on("enter chat", (chat) => {
+        console.log(chat, 'ENTER CHAT')
+        conn.join('chat')
+    })
+
+    conn.on("new message", (newMsg) => {
+        let chat = newMsg.chatWith
+        if(!chat.users) return console.log("Chat not sent")
+        
+        chat.users.map((el) => {
+            if(el._id == newMsg.sender._id) return // we don't want to see our own message
+
+            console.log("NEW MESSAGE" , newMsg)
+            conn.in(el._id)
+            .emit("message received", newMsg)
+        })
+    })
+
+    conn.on("typing" , (chat) => conn.in(chat).emit("typing"))
+    conn.on("typing stop" , (chat) => conn.in(chat).emit("typing stop") )
+
+    conn.off("new-user-setup" , () => {
+        conn.leave(userData._id)
+    })
+
+    // conn.on("disconnect", () => {
+    //     // totalUser -= 1
+    //     console.log("DISCONNECT", totalUser)
+    // })
 })
 
 // Listener

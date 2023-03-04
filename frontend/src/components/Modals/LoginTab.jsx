@@ -19,7 +19,7 @@ const LoginTab = ({onClose}) => {
   const [loading ,setLoading] = useState(false)
 
   async function handlePost(){
-    return await axios.post(`${DEV_URL}/auth/login`, formData)
+    return await axios.post(`${URL}/auth/login`, formData)
   }
 
   const handleFormSubmit = (from) => {

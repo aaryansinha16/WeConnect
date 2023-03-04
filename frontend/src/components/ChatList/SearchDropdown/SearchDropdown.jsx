@@ -16,8 +16,8 @@ const SearchDropdown = ({searchList, handleAddChat, search}) => {
         style={{backdropFilter: 'blur(5px)'}}
         >
         {
-          searchList?.map((el) => (
-            <DropCard key={el._id} {...el} handleAddChat={handleAddChat}/>
+          searchList?.map((el, i) => (
+            <DropCard key={i} {...el} handleAddChat={handleAddChat}/>
           ))
         }
         {

@@ -5,12 +5,12 @@ const userModel = require("../models/user.model");
 
 const getAllMessages = asyncHandler(async (req ,res) => {
     try{
-        let allMesssages = await messageModel.find({ chatWith : req.params.chatId })
+        let allMessages = await messageModel.find({ chatWith : req.params.chatId })
         .populate('chatWith')
         .populate("sender", "userName email avatar")
 
         return res.send({
-            allMesssages
+            allMessages
         })
     }catch(e){
         return res.status(400).send(e.message)

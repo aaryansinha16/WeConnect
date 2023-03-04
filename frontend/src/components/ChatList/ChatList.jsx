@@ -18,29 +18,30 @@ const ChatList = () => {
   const [searchList, setSearchList] = useState([])
   const [chatLoading , setChatLoading] = useState(false)
   
-  const {allChat, setAllChat, user, selectChat} = useContext(allContext)
+  const {allChat, setAllChat, user, selectChat , globalRender} = useContext(allContext)
   
   useEffect(() => {
     if(user != undefined){
       setChatLoading(true)
-      axios.get(`${DEV_URL}/chat` , {
+      axios.get(`${URL}/chat` , {
         headers : {
           Authorization : user.token
         }
       })
       .then((res) => {
         setChatLoading(false)
+        console.log('render count, this is chat list', res.data)
         setAllChat(res.data)
       }).catch((e) => setChatLoading(false))
     }
-  }, [render, user])
+  }, [render, user, globalRender])
 
   useEffect(() => {
     if(search.length != 0 && user != undefined){
 
       // ? Below timeout is for debouncing search
       let getUsers = setTimeout(() => {
-        axios.get(`${DEV_URL}/user?search=${search}`, {
+        axios.get(`${URL}/user?search=${search}`, {
           headers : {
             Authorization : user.token
           }
@@ -56,7 +57,7 @@ const ChatList = () => {
   }, [search, user])
 
   const handleAddChat = (participantId) => {
-    axios.post(`${DEV_URL}/chat`, {participantId}, {
+    axios.post(`${URL}/chat`, {participantId}, {
       headers : {
         Authorization : user.token
       }
@@ -64,7 +65,6 @@ const ChatList = () => {
     .then((res) => {
       setRender(!render)
       setSearchList([])
-      console.log(res.data, 'this is add chat')
     }).catch((e) => console.log(e, 'addchat error'))
   }
 
@@ -85,6 +85,7 @@ const ChatList = () => {
       spacing='30px'
       h='calc(100vh - 80px)'
       overflowY='scroll'
+      overflowX='hidden'
       gap='10px'
     >
       <Box pb='10px' mt='0px' w='100%'>
@@ -109,8 +110,8 @@ const ChatList = () => {
           <AccordionPanel pb={4} p={0}>
             {
               !chatLoading ? 
-              allChat?.map((el) => (
-                <ChatCard key={el._id} {...el} el={el}/>
+              allChat?.map((el, i) => (
+                <ChatCard key={i} {...el} el={el}/>
               ))
               : 
               <Spinner size='lg'/>

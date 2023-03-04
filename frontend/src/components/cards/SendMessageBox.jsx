@@ -4,7 +4,7 @@ import { BsImage } from 'react-icons/bs'
 import SendIcon from '../../assets/send.png'
 import ImageIcon from '../../assets/image.png'
 
-const SendMessageBox = () => {
+const SendMessageBox = ({setNewMessage, handleNewMessage, newMessage}) => {
     const {colorMode} = useColorMode()
   return (
     <Flex
@@ -16,6 +16,7 @@ const SendMessageBox = () => {
         p={1}
         pl={5}
         pr={5}
+        onKeyDown={handleNewMessage}
     >
         <Input 
             focusBorderColor='transparent'
@@ -25,12 +26,14 @@ const SendMessageBox = () => {
             border='none'
             bg='transparent'
             fontSize='18px'
+            value={newMessage}
             p={0}
             color={colorMode == "light" ? "black" : "white"}
+            onChange={(e) => setNewMessage(e.target.value)}
         />
         <Flex alignItems='center' justifyContent='flex-end' width='fit-content' gap='10px' w='20%'>
             <Img src={ImageIcon} alt='sendIcon' w='28px' cursor='pointer' transition='.1s linear'  _hover={{width:'32px'}} />
-            <Img src={SendIcon} alt='sendIcon' w='24px' cursor='pointer' transition='.1s linear'  _hover={{width:'28px'}} />
+            <Img src={SendIcon} alt='sendIcon' w='24px' cursor='pointer' transition='.1s linear'  _hover={{width:'28px'}} onClick={handleNewMessage}/>
         </Flex>
     </Flex>
   )

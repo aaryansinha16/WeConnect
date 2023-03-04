@@ -44,7 +44,7 @@ const SignUpTab = ({onClose}) => {
       data.append('upload_preset', 'weconnect')
       data.append('cloud_name', 'dvhzuysvf')
 
-      axios.post("https://api.cloudinary.com/v1_1/dvhzuysvf/image/upload", data)
+      axios.post("https://api.cloudinary.com/v1_1/dvhzuysvf/image/upload", data , {withCredentials : false})
       .then((res) => {
         setAvatar(res.data.url)
         setFormData({
@@ -74,7 +74,7 @@ const SignUpTab = ({onClose}) => {
   }
 
   const handleSignup = async () => {
-    return await axios.post(`${DEV_URL}/auth/signup`, formData)
+    return await axios.post(`${URL}/auth/signup`, formData)
   }
 
   const handleSubmit = (from) => {
@@ -87,7 +87,6 @@ const SignUpTab = ({onClose}) => {
       return
     }
     
-    console.log(formData, 'this is form data')
     var flag = false
     for(var i = 0; i<formData.email.length ; i++){
       if(formData.email[i] == '@') flag = true
