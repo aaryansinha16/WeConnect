@@ -45,7 +45,7 @@ const SingleChatBox = () => {
     useEffect(() => {
         if(Object.keys(selectChat).length > 0){
             setLoading(true)
-            axios.get(`http://localhost:3000/messages/get-all-messages/${selectChat._id}`, {
+            axios.get(`${URL}/messages/get-all-messages/${selectChat._id}`, {
                 headers : {
                     Authorization : user.token
                 }
@@ -85,7 +85,7 @@ const SingleChatBox = () => {
 
             let encryptedMessage = encryptMessage(newMessage)
 
-            await axios.post('http://localhost:3000/messages/send-message', {chatId : selectChat._id, message : encryptedMessage} , {
+            await axios.post(`${URL}/messages/send-message`, {chatId : selectChat._id, message : encryptedMessage} , {
                 headers : {
                     Authorization : user.token
                 }
