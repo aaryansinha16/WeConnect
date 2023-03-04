@@ -26,6 +26,7 @@ import {
 } from "react-icons/ai";
 import { BsFillCameraVideoFill } from "react-icons/bs";
 import NavProfileCard from '../cards/NavProfileCard';
+import Atropos from 'atropos/react'
 
 
 const Navbar = () => {
@@ -120,12 +121,17 @@ const Navbar = () => {
                     spacing={2}
                 >
                   <SunIcon color='orange' fontSize='20px'/>
+                  <Atropos
+
+                  >
                     <Switch 
+                        data-atropos-offset='10'
                         size='lg'
                         aria-label={`Switch to ${text} mode`}
                         onChange={toggleColorMode}
                         defaultChecked
                     />
+                  </Atropos>
                   <MoonIcon color={colorMode == 'light' ? 'darkBlue' : 'gray.400'} fontSize='20px'/>
               </HStack>
               <BellIcon fontSize='22px' ml='20px' cursor='pointer'/>

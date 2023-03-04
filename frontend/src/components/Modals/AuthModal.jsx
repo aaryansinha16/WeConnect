@@ -24,6 +24,7 @@ import { useState } from "react";
 import { useRef } from "react";
 import LoginTab from "./LoginTab";
 import SignUpTab from "./SignUpTab";
+import Atropos from 'atropos/react'
 
 const changeCol = keyframes`
   from { backdrop-filter:blur(1px) hue-rotate(0deg);  }
@@ -74,6 +75,10 @@ export default function AuthModal({ isOpen, onClose }) {
           color="white"
           py={2}
         >
+          <Atropos
+            activeOffset={30}
+            shadow={false}
+          >
           <ModalBody>
 
             <Tabs isLazy isFitted variant='soft-rounded' onChange={(ind) => setTabChange(ind)}>
@@ -93,6 +98,7 @@ export default function AuthModal({ isOpen, onClose }) {
 
           </ModalBody>
 
+        </Atropos>
         </ModalContent>
       </Modal>
     </>

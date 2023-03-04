@@ -5,6 +5,7 @@ import { allContext } from '../../contexts/AllContext'
 import SendMessageBox from '../cards/SendMessageBox'
 import SingleChatBox from './SingleChatBox'
 import GroupAvatar from '../../assets/groupAvatar.png'
+import TypingLoader from '../TypingLoader/TypingLoader'
 
 const MainChat = () => {
   const {colorMode} = useColorMode()
@@ -47,7 +48,7 @@ const MainChat = () => {
           }
           <InfoIcon />
         </HStack>
-  
+          {/* <TypingLoader /> */}
         <VStack
           pl={4}
           pr={4}

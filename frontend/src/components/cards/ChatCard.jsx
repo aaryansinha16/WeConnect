@@ -2,6 +2,7 @@ import { Avatar, AvatarBadge, Flex, HStack, Text, useColorMode, VStack } from '@
 import React, { useContext } from 'react'
 import { allContext } from '../../contexts/AllContext'
 import { decryptMessage } from '../../encryption'
+import GroupAvatar from '../../assets/groupAvatar.png'
 
 const ChatCard = ({
     groupChatType,
@@ -43,7 +44,7 @@ const ChatCard = ({
             alignItems='center'
             gap={1}
         >
-            <Avatar src={participent[0].avatar} size='md'>
+            <Avatar src={groupChatType ? GroupAvatar : participent[0].avatar} size='md'>
                 <AvatarBadge boxSize='1.25em' bg='green.500' />
             </Avatar>
 

@@ -93,6 +93,7 @@ const LoginTab = ({onClose}) => {
     >
       <FormControl isRequired>
         <Input
+          data-atropos-offset="-3"
           border='none'
           bg={colorMode == 'light' ? 'gray.300' : 'gray.600'} 
           type='email'
@@ -105,6 +106,7 @@ const LoginTab = ({onClose}) => {
         />
       </FormControl>
       <Input
+        data-atropos-offset="3"
         border='none'
         bg={colorMode == 'light' ? 'gray.300' : 'gray.600'} 
         type='password'

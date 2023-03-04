@@ -23,6 +23,7 @@ const ChatList = () => {
   useEffect(() => {
     if(user != undefined){
       setChatLoading(true)
+      console.log("CHAT LIST HERE")
       axios.get(`${URL}/chat` , {
         headers : {
           Authorization : user.token
@@ -109,12 +110,12 @@ const ChatList = () => {
             </AccordionButton>
           <AccordionPanel pb={4} p={0}>
             {
-              !chatLoading ? 
+              // !chatLoading ? 
               allChat?.map((el, i) => (
                 <ChatCard key={i} {...el} el={el}/>
               ))
-              : 
-              <Spinner size='lg'/>
+              // : 
+              // <Spinner size='lg'/>
             }
           </AccordionPanel>
         </AccordionItem>

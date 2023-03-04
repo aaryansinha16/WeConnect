@@ -13,7 +13,7 @@ let checkChat
 const SingleChatBox = () => {
     const {colorMode} = useColorMode()
     const toast = useToast()
-    const {selectChat, user , setGlobalRender} = useContext(allContext)
+    const {selectChat, user , setGlobalRender, globalRender} = useContext(allContext)
     const [allMessages, setAllMessages] = useState([])
     const [loading ,setLoading ] = useState(false)
     const [newMessage ,setNewMessage] = useState("")
@@ -30,13 +30,14 @@ const SingleChatBox = () => {
 
     useEffect(() => {
         socket.on("message received", (newMsg) => {
+            // console.log("MESSAGE AAYA", newMsg)
+            setGlobalRender(!globalRender)
             if(!checkChat || checkChat._id !== newMsg.chatWith._id){
-
             }else{
                 let decryptedMessage = decryptMessage(newMsg.message)
                 newMsg = {...newMsg, message : decryptedMessage}
                 setAllMessages([...allMessages , newMsg])
-                setGlobalRender((prev) => !prev)
+                // setGlobalRender(!globalRender)
             }
         })
     }) //! POTENTIAL BUG (DEPENDENCY ARRAY)
@@ -96,8 +97,8 @@ const SingleChatBox = () => {
                 var decryptedMyMsg = decryptMessage(myMsg.message)
                 myMsg = {...myMsg, message : decryptedMyMsg}
                 setAllMessages([...allMessages, myMsg])
-                // setRender((prev) => !prev)
-                setGlobalRender((prev) => !prev)
+                // setRender(!globalRender)
+                // setGlobalRender(!globalRender)
             })
             .catch((e) => console.log(e, 'new message error'))
         }

@@ -119,3 +119,10 @@ html{
 input[type=file]::-webkit-file-upload-button { /* chromes and blink button */
   cursor: pointer; 
 }
+
+.my-atropos{
+  width: 100%;
+  border-radius: 40px;
+  cursor:all-scroll;
+  /* height: 160px; */
+}
