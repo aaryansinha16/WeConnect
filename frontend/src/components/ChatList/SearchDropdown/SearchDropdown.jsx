@@ -5,14 +5,14 @@ import DropCard from './DropCard'
 const SearchDropdown = ({searchList, handleAddChat, search}) => {
   const {colorMode} = useColorMode()
   return (
-    <Box zIndex='10' w='110%' position='absolute' top='110%' pl={6} pr={6}>
+    <Box className={colorMode == 'dark' ? 'chatListDark' : 'chatListLight'} zIndex='10' w='110%' maxH='300px' position='absolute' top='110%' pl={6} pr={6} overflowY='scroll'>
       <VStack 
         spacing={1} 
         justifyContent='flex-start' 
         alignItems='flex-start' 
         w='100%' 
         borderRadius='xl'
-        bgColor={colorMode == 'dark' ? 'rgba(0, 0, 0, .55)' : 'rgba(255, 255, 255, .55)' }
+        bgColor={colorMode == 'dark' ? 'rgba(0, 0, 0, .55)' : 'rgba(230, 230, 230, .55)' }
         style={{backdropFilter: 'blur(5px)'}}
         >
         {

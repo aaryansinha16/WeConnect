@@ -4,6 +4,7 @@
 * Messenging DONE
 * Single/Group chat DONE
 * Authentication (JWT + cookies)
+* Responsiveness Done
 * Profile Images using cloudinary (Users can upload their profile images)
 * Searching users from database 
 * Debouncing (a debounce of 500ms is implemented in search results)
@@ -14,7 +15,6 @@
 * Chat update time is dynamic
 
 ## Features to implement(remaining) : 
-* Responsiveness (frontend)
 * Notifications (backend/frontend)
 * Read / unread / groups catagory wise display of chats (frontend)
 
@@ -24,6 +24,12 @@
 [![chatP][chatPage]]()
 [![src][search]]()
 [![grp][group]]()
+
+## Todays Todo: 
+* Notifications
+* Cookies
+* Prevent Re-renders (useMemo, useCallBack's)
+* Profile Modal
 
 
 [dark]: /frontend/src/assets/dark.png

@@ -104,7 +104,7 @@ const ChatList = () => {
         <AccordionItem border='none'>
             <AccordionButton _hover={{bg : colorMode == 'dark' ? 'gray.900' : 'gray.200'}}>
               <Box as="span" flex='1' textAlign='left' fontFamily='Rubik'>
-                <Text fontFamily='Rubik' fontSize='14px' color={colorMode =='dark' ? 'gray.300' : 'gray.700'}>Unread</Text>
+                <Text fontFamily='Rubik' fontSize='14px' color={colorMode =='dark' ? 'gray.300' : 'gray.700'}>All Chats</Text>
               </Box>
               <AccordionIcon />
             </AccordionButton>
@@ -123,32 +123,33 @@ const ChatList = () => {
         <AccordionItem border='none'>
             <AccordionButton>
               <Box as="span" flex='1' textAlign='left'>
-                <Text fontFamily='Rubik' fontSize='14px' color={colorMode =='dark' ? 'gray.300' : 'gray.700'}>Read</Text>
-              </Box>
-              <AccordionIcon />
-            </AccordionButton>
-          <AccordionPanel pb={4}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-            commodo consequat.
-          </AccordionPanel>
-        </AccordionItem>
-
-        <AccordionItem border='none'>
-            <AccordionButton>
-              <Box as="span" flex='1' textAlign='left'>
                 <Text fontFamily='Rubik' fontSize='14px' color={colorMode =='dark' ? 'gray.300' : 'gray.700'}>Groups</Text>
               </Box>
               <AccordionIcon />
             </AccordionButton>
           <AccordionPanel pb={4}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-            commodo consequat.
+            {
+              // !chatLoading ? 
+              allChat?.map((el, i) => (
+                el.groupChatType && <ChatCard key={i} {...el} el={el}/>
+              ))
+              // : 
+              // <Spinner size='lg'/>
+            }
           </AccordionPanel>
         </AccordionItem>
+
+        {/* <AccordionItem border='none'>
+            <AccordionButton>
+              <Box as="span" flex='1' textAlign='left'>
+                <Text fontFamily='Rubik' fontSize='14px' color={colorMode =='dark' ? 'gray.300' : 'gray.700'}>Read</Text>
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+          <AccordionPanel pb={4}>
+          </AccordionPanel>
+        </AccordionItem> */}
+
       </Accordion>
     </Flex>
   )

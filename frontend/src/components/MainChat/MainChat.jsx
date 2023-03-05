@@ -1,15 +1,16 @@
 import { InfoIcon } from '@chakra-ui/icons'
-import { Avatar, Box, Flex, HStack, Text, useColorMode, VStack } from '@chakra-ui/react'
+import { Avatar, Box, Flex, HStack, IconButton, Text, useColorMode, VStack } from '@chakra-ui/react'
 import React, { useContext } from 'react'
 import { allContext } from '../../contexts/AllContext'
 import SendMessageBox from '../cards/SendMessageBox'
 import SingleChatBox from './SingleChatBox'
 import GroupAvatar from '../../assets/groupAvatar.png'
 import TypingLoader from '../TypingLoader/TypingLoader'
+import {IoReturnUpBackOutline} from 'react-icons/io5' 
 
 const MainChat = () => {
   const {colorMode} = useColorMode()
-  const {selectChat, user} = useContext(allContext)
+  const {selectChat, user, setSelectChat} = useContext(allContext)
 
   // let allUsers = selectChat.users
   let participant = selectChat?.users?.filter((el) => el._id !== user.user._id)
@@ -32,6 +33,7 @@ const MainChat = () => {
           bg={colorMode === 'dark' ? 'black' : 'gold'}
           p='10px 25px 10px 25px'
         >
+        <IconButton onClick={() => setSelectChat({})} aria-label='return' colorScheme={colorMode == 'dark' ? 'blue' : 'green'} display={{base:'flex', md:'none'}} icon={<IoReturnUpBackOutline />} />
           {
             selectChat.groupChatType == false ? 
             <Text as={Flex} alignItems='center' fontSize='16px' fontWeight='light' color={colorMode == 'dark' ? 'gray.400' : 'white'}>

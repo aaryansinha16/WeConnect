@@ -25,7 +25,7 @@ const DropCard = ({
         p={2} 
         w='100%' 
         bg={selected == 'true' ? "purple.600" : 'transparent'}
-        _hover={{bg: selected != 'true' ? 'rgba(255, 255, 255, .20)' : 'purple.800'}}
+        _hover={{bg: selected == undefined ? 'gray.300' : selected != 'true' ? 'rgba(255, 255, 255, .20)' : 'purple.800'}}
         >
         <Avatar src={avatar} />
         <VStack

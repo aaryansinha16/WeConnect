@@ -22,10 +22,6 @@ function App() {
   useEffect(() => {
     let userData = JSON.parse(localStorage.getItem('we-connect-user-data')) || undefined
     if(userData === undefined) onOpen()
-
-    // Socket.on("new-connection", (d) => {
-    //   console.log("Server said: ", d)
-    // })
   }, [])
 
   function testCookie(){
@@ -38,7 +34,7 @@ function App() {
     .then((res) => console.log(res))
   }
   return (
-    <Box className="App" bg={colorMode == "dark" ? "black" : "teal"} p='7px' h='100vh' overflow='hidden'>
+    <Box className="App" bg={colorMode == "dark" ? "black" : "teal"} p={{base:'3px', sm: '7px'}} h='100vh' overflow='hidden'>
       <Navbar />
       {/* <Button onClick={testCookie}>logout</Button>
       <Button onClick={readCookie}>Test</Button> */}

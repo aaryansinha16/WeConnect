@@ -4,6 +4,7 @@ import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
 import { allContext } from '../../contexts/AllContext'
 import DropCard from '../ChatList/SearchDropdown/DropCard'
+import Atropos from 'atropos/react'
 
 let URL = 'https://chat-app-test.adaptable.app'
 let DEV_URL = 'http://localhost:3000'
@@ -118,6 +119,10 @@ const CreateGroup = ({isOpen, onClose, setRender}) => {
     >
         <ModalOverlay />
         <ModalContent>
+        <Atropos
+            activeOffset={30}
+            shadow={false}
+          >
             <ModalHeader>Create Group</ModalHeader>
             <ModalCloseButton />
             <ModalBody >
@@ -171,6 +176,7 @@ const CreateGroup = ({isOpen, onClose, setRender}) => {
             <ModalFooter justifyContent='center'>
                 <Button isLoading={loading} variant='solid' colorScheme='blue' gap='5px' onClick={handleCreateGroup}>Create <PlusSquareIcon /> </Button>
             </ModalFooter>
+            </Atropos>
         </ModalContent>
     </Modal>
   )

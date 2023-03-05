@@ -13,7 +13,7 @@ const SignUpTab = ({onClose}) => {
   const toast = useToast()
   const {setGlobalRender} = useContext(allContext)
 
-  const [avatar , setAvatar] = useState("abc")
+  const [avatar , setAvatar] = useState("")
   const [visb , setVisb] = useState(false)
   const [avatarLoading ,setAvatarLoading ] = useState(false)
   const [loading , setLoading ] = useState(false)
@@ -22,7 +22,7 @@ const SignUpTab = ({onClose}) => {
     userName : "",
     email : "",
     password : "",
-    avatar : ""
+    avatar : "https://api.dicebear.com/5.x/adventurer-neutral/svg?seed=rohit"
   })
 
   function handleChangeFile(avatar){

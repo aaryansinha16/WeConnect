@@ -15,6 +15,12 @@ import {
     useDisclosure,
     Switch,
     Text,
+    Drawer,
+    DrawerOverlay,
+    DrawerContent,
+    DrawerCloseButton,
+    DrawerHeader,
+    DrawerBody,
   } from "@chakra-ui/react";
 import { BellIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { FaHeart, FaMoon, FaSun } from "react-icons/fa";
@@ -33,7 +39,7 @@ const Navbar = () => {
 
     const {colorMode, toggleColorMode} = useColorMode()
 
-    const mobileNav = useDisclosure();
+    const { isOpen, onOpen, onClose } = useDisclosure()
 
     const text = useColorModeValue("dark", "light");
     const SwitchIcon = useColorModeValue(FaMoon, FaSun);
@@ -44,45 +50,6 @@ const Navbar = () => {
     const height = ref.current ? ref.current.getBoundingClientRect() : 0;
 
 
-
-    const MobileNavContent = (
-      <VStack
-        pos="absolute"
-        top={0}
-        left={0}
-        right={0}
-        display={mobileNav.isOpen ? "flex" : "none"}
-        flexDirection="column"
-        p={2}
-        pb={4}
-        m={2}
-        bg={bg}
-        spacing={3}
-        rounded="sm"
-        shadow="sm"
-      >
-        <CloseButton
-          aria-label="Close menu"
-          justifySelf="self-start"
-          onClick={mobileNav.onClose}
-        />
-        <Button w="full" variant="ghost" leftIcon={<AiFillHome />}>
-          Dashboard
-        </Button>
-        <Button
-          w="full"
-          variant="solid"
-          colorScheme="brand"
-          leftIcon={<AiOutlineInbox />}
-        >
-          Inbox
-        </Button>
-        <Button w="full" variant="ghost" leftIcon={<BsFillCameraVideoFill />}>
-          Videos
-        </Button>
-      </VStack>
-    );
-
   return (
     <Box pos="relative"
       borderBottom={colorMode == "dark" ? '3.5px solid black' : "3.5px solid rgb(240, 240, 240)"}
@@ -92,18 +59,18 @@ const Navbar = () => {
         shadow={y > height ? "sm" : undefined}
         transition="box-shadow 0.2s"
         bg={bg}
-        borderRadius='50px 50px 0px 0px'
+        borderRadius={{base: '15px 15px 0px 0px', md : '50px 50px 0px 0px'}}
         // borderTop="6px solid"
         // borderTopColor="brand.400"
         w="full"
-        overflowY="hidden"
+        // overflowY="hidden"
       >
-        <chakra.div h="4.5rem" mx="100px">
+        <chakra.div h={{base: "4rem" , sm :'4rem', md: "4.5rem"}} mx={{base: '0px', md: "100px"}}>
           <Flex w="full" h="full" px="6" align="center" justify="space-between">
             <Flex align="center">
               <HStack>
                 {/* <Logo /> */}
-                <Text fontSize='32px' fontFamily='mono' fontWeight='bold'>WeConnect</Text>
+                <Text fontSize={{base: '24px', md:'32px'}} fontFamily='mono' fontWeight='bold'>WeConnect</Text>
               </HStack>
             </Flex>
 
@@ -114,6 +81,7 @@ const Navbar = () => {
               align="center"
               color="gray.400"
               gap='20px'
+              display={{base:'none', sm:'flex'}}
             >
               <HStack
                     justifyContent='center'
@@ -135,7 +103,9 @@ const Navbar = () => {
                   <MoonIcon color={colorMode == 'light' ? 'darkBlue' : 'gray.400'} fontSize='20px'/>
               </HStack>
               <BellIcon fontSize='22px' ml='20px' cursor='pointer'/>
-              <HStack spacing="5" display={{ base: "none", md: "flex" }}>
+              <HStack spacing="5" 
+                display={{ base: "none", md: "flex" }}
+              >
                 <Link
                   isExternal
                   aria-label="Go to Aaryan's GitHub page"
@@ -150,21 +120,58 @@ const Navbar = () => {
                   />
                 </Link>
               </HStack>
+
+              <NavProfileCard />
+            </Flex>
+            <Flex
+              alignItems='center'
+              gap='20px'
+            >
+              <BellIcon cursor='pointer' fontSize='22px'/>
               <IconButton
-                display={{ base: "flex", md: "none" }}
+                display={{ base: "flex", sm: "none" }}
                 aria-label="Open menu"
                 fontSize="20px"
                 color="gray.800"
                 _dark={{ color: "inherit" }}
                 variant="ghost"
                 icon={<AiOutlineMenu />}
-                onClick={mobileNav.onOpen}
+                onClick={() => onOpen()}
               />
-
-              <NavProfileCard />
             </Flex>
+            {/* Drawer for mobile navbar */}
+              <Drawer 
+                onClose={onClose} 
+                isOpen={isOpen} 
+                size='xl'
+                >
+              <DrawerOverlay />
+              <DrawerContent>
+                <DrawerHeader>
+                  <NavProfileCard />
+                </DrawerHeader>
+                <DrawerCloseButton />
+                <DrawerBody>
+                  <HStack
+                      justifyContent='center'
+                      alignItems='center'
+                      spacing={2}
+                    >
+                      <SunIcon color='orange' fontSize='20px'/>
+                        <Switch 
+                            data-atropos-offset='10'
+                            size='lg'
+                            aria-label={`Switch to ${text} mode`}
+                            onChange={toggleColorMode}
+                            defaultChecked
+                        />
+                      <MoonIcon color={colorMode == 'light' ? 'darkBlue' : 'gray.400'} fontSize='20px'/>
+                  </HStack>
+
+                </DrawerBody>
+              </DrawerContent>
+            </Drawer>
           </Flex>
-          {MobileNavContent}
         </chakra.div>
       </chakra.header>
     </Box>

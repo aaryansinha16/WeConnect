@@ -3,6 +3,7 @@ import React, { useContext } from 'react'
 import { allContext } from '../../contexts/AllContext'
 import { decryptMessage } from '../../encryption'
 import GroupAvatar from '../../assets/groupAvatar.png'
+import Atropos from 'atropos/react'
 
 const ChatCard = ({
     groupChatType,
@@ -25,6 +26,10 @@ const ChatCard = ({
     updatedTime = updatedTime[5] == ":" ? updatedTime.slice(0, 5)  : updatedTime.slice(0, 4)
 
   return (
+    <Atropos
+            activeOffset={20}
+            shadow={false}
+    >
     <Flex
         onClick={() => setSelectChat(el)}
         cursor='pointer'
@@ -67,6 +72,7 @@ const ChatCard = ({
 
         <Text fontSize='sm'>{updatedTime + " " + timeZone}</Text>
     </Flex>
+    </Atropos>
   )
 }
 
