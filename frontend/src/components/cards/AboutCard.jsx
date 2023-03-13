@@ -44,7 +44,7 @@ const AboutCard = () => {
                     <Text fontSize='2xl' color={colorMode == 'dark' ? 'white' : 'white'}>Vincent Churchel</Text>
                     <Text fontSize='sm' color='gray.300'>vincent@gmail.com</Text>
                 </VStack>
-                <Text pt='16px'>Meet Aaryan, He is the owner of the app and the one who worked for everything</Text>
+                <Text pt='16px'>Meet Aaryan, He is the one you are chatting</Text>
             </>
             :
             <>
