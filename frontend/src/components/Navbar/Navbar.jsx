@@ -21,6 +21,7 @@ import {
     DrawerCloseButton,
     DrawerHeader,
     DrawerBody,
+    Image,
   } from "@chakra-ui/react";
 import { BellIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { FaHeart, FaMoon, FaSun } from "react-icons/fa";
@@ -33,6 +34,7 @@ import {
 import { BsFillCameraVideoFill } from "react-icons/bs";
 import NavProfileCard from '../cards/NavProfileCard';
 import Atropos from 'atropos/react'
+import logo from '../../../public/logo.png'
 
 
 const Navbar = () => {
@@ -69,7 +71,7 @@ const Navbar = () => {
           <Flex w="full" h="full" px="6" align="center" justify="space-between">
             <Flex align="center">
               <HStack>
-                {/* <Logo /> */}
+                <Image src={logo} w='60px'/>
                 <Text fontSize={{base: '24px', md:'32px'}} fontFamily='mono' fontWeight='bold'>WeConnect</Text>
               </HStack>
             </Flex>
