@@ -68,7 +68,7 @@ app.post('/', (req, res) => {
     // }
     res.setHeader(
         'Set-Cookie',
-        `testCookie=aar; Expires=${exp}; HttpOnly; Secure;`
+        `testCookie=aar; Expires=${exp}; HttpOnly; SameSite=none; Secure;`
     );
     // res.cookie('testCookie', "aaryan", cookieOptions)
     res.send("cookie created")
