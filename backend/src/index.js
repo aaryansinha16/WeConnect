@@ -49,7 +49,7 @@ const io = new Server(server, {
 
 //Test cookie route
 app.get('/', (req, res) => {
-    console.log("COOKIE:", req.cookies)
+    console.log("COOKIE:",req.headers.cookie)
     res.send({
         cookie: req.cookies,
         message: 'working'
@@ -58,15 +58,19 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
     let exp = new Date()
     exp.setDate(exp.getDate() + 2)
-    let cookieOptions = {
-        httpOnly : true,
-        expires : exp,
-        domain: 'https://we-connect-now.vercel.app',
-        origin : 'https://we-connect-now.vercel.app',
-        sameSite : 'none',
-        secure : true
-    }
-    res.cookie('testCookie', "aaryan", cookieOptions)
+    // let cookieOptions = {
+    //     httpOnly : true,
+    //     expires : exp,
+    //     domain: 'https://we-connect-now.vercel.app',
+    //     origin : 'https://we-connect-now.vercel.app',
+    //     sameSite : 'none',
+    //     secure : true
+    // }
+    res.setHeader(
+        'Set-Cookie',
+        `testCookie=aar; Expires=${exp}; HttpOnly; Secure; Domain=we-connect-now.vercel.app`
+    );
+    // res.cookie('testCookie', "aaryan", cookieOptions)
     res.send("cookie created")
 })
 
