@@ -57,7 +57,7 @@ app.get('/', (req, res) => {
 })
 app.post('/', (req, res) => {
     let exp = new Date()
-    exp.setSeconds(exp.getSeconds() + 30)
+    exp.setDate(exp.getDate() + 2)
     let cookieOptions = {
         httpOnly : true,
         expires : exp,
