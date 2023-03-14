@@ -6,6 +6,7 @@ const loginUser = asyncHandler(async (req, res) => {
     const {email , password} = req.body
 
     let user = await userModel.findOne({email})
+    // console.log(email, password)
     
     if(user && (await user.checkPassword(password))){
         let token = jwt.sign({id : user._id}, "WE_CON_SECRET" , {
@@ -17,12 +18,15 @@ const loginUser = asyncHandler(async (req, res) => {
 
         let cookieOptions = {
             httpOnly : true,
-            expires : expTime
+            expires : expTime,
+            origin : 'we-connect-now.vercel.app',
+            sameSite : 'none',
+            secure : true
         }
 
         res.cookie("weConnectUserCookie", token, cookieOptions)
-        console.log(res.cookie, req.cookies, 'AUTH CONTROLLER')
-        return res.status(200).send({user, token})
+        // console.log(res.cookie, req.cookies, 'AUTH CONTROLLER')
+        return res.status(200).send({user})
         
     }else{
         return res.status(403).send({
@@ -56,14 +60,16 @@ const signUpUser = asyncHandler(async (req, res) => {
 
         let cookieOptions = {
             httpOnly : true,
-            expires : expTime
+            expires : expTime,
+            origin : 'we-connect-now.vercel.app',
+            sameSite : 'none',
+            secure : true
         }
 
         res.cookie("weConnectUserCookie", token, cookieOptions)
         
         return res.status(200).send({
-            user: userCreate,
-            token
+            user: userCreate
         })
     }else {
         return res.status(403).send({

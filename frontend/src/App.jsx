@@ -26,18 +26,24 @@ function App() {
 
   function testCookie(){
     axios.post('http://localhost:3000')
-    .then((res) => console.log(res))
+    .then((res) => console.log(res.data))
   }
 
   function readCookie(){
     axios.get('http://localhost:3000')
-    .then((res) => console.log(res))
+    .then((res) => console.log(res.data))
+  }
+
+  function removeCookies(){
+    axios.get('http://localhost:3000/logout')
+    .then((res) => console.log(res.data))
   }
   return (
     <Box className="App" bg={colorMode == "dark" ? "black" : "teal"} p={{base:'3px', sm: '7px'}} h='100vh' overflow='hidden'>
       <Navbar />
-      {/* <Button onClick={testCookie}>logout</Button>
-      <Button onClick={readCookie}>Test</Button> */}
+      {/* <Button onClick={testCookie}>create cookie</Button>
+      <Button onClick={readCookie}>Read cookie</Button>
+      <Button onClick={removeCookies}>delete cookie</Button> */}
       <Flex
         justifyContent='flex-start'
         alignItems='flex-start'

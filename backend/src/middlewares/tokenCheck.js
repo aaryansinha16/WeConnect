@@ -4,12 +4,12 @@ const userModel = require('../models/user.model')
 
 const tokenCheck = asyncHandler(async ( req, res, next ) => {
     // console.log("TOKEN CHECK",req.cookies)
-    // if(req.cookies.weConnectUserCookie){
-    if(req.headers.authorization){
+    // if(req.headers.authorization){
+    console.log("TOKEN_CHECK : ", req.cookies)
+    if(req.cookies.weConnectUserCookie){
         try{
-            // console.log("TOKEN_CHECK : ", req.headers.authorization)
-            // let token = req.cookies.weConnectUserCookie
-            let token = req.headers.authorization
+            let token = req.cookies.weConnectUserCookie
+            // let token = req.headers.authorization
     
             const decodedId = jwt.verify(token, "WE_CON_SECRET")
             req.user = await userModel.findById(decodedId.id).select('-password')

@@ -47,11 +47,7 @@ const SingleChatBox = () => {
     useEffect(() => {
         if(Object.keys(selectChat).length > 0){
             setLoading(true)
-            axios.get(`${URL}/messages/get-all-messages/${selectChat._id}`, {
-                headers : {
-                    Authorization : user.token
-                }
-            })
+            axios.get(`${URL}/messages/get-all-messages/${selectChat._id}`)
             .then((res) => {
                 res.data.allMessages.map((el) => el.message = decryptMessage(el.message))
                 setAllMessages(res.data.allMessages)
@@ -87,11 +83,7 @@ const SingleChatBox = () => {
 
             let encryptedMessage = encryptMessage(newMessage)
 
-            await axios.post(`${URL}/messages/send-message`, {chatId : selectChat._id, message : encryptedMessage} , {
-                headers : {
-                    Authorization : user.token
-                }
-            })
+            await axios.post(`${URL}/messages/send-message`, {chatId : selectChat._id, message : encryptedMessage})
             .then((res) => {
                 setNewMessage("")
                 socket.emit("new message", res.data)

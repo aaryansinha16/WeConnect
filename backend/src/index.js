@@ -57,7 +57,7 @@ app.get('/', (req, res) => {
 })
 app.post('/', (req, res) => {
     let exp = new Date()
-    exp.setDate(exp.getDate() + 10)
+    exp.setSeconds(exp.getSeconds() + 30)
     let cookieOptions = {
         httpOnly : true,
         expires : exp,
@@ -71,6 +71,7 @@ app.post('/', (req, res) => {
 
 app.get('/logout', (req, res) => {
     res.clearCookie("testCookie")
+    res.clearCookie("weConnectUserCookie")
     res.send("Logged out")
 })
 

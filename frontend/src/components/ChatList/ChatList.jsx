@@ -24,11 +24,7 @@ const ChatList = () => {
     if(user != undefined){
       setChatLoading(true)
       console.log("CHAT LIST HERE")
-      axios.get(`${URL}/chat` , {
-        headers : {
-          Authorization : user.token
-        }
-      })
+      axios.get(`${URL}/chat`)
       .then((res) => {
         setChatLoading(false)
         console.log('render count, this is chat list', res.data)
@@ -42,11 +38,7 @@ const ChatList = () => {
 
       // ? Below timeout is for debouncing search
       let getUsers = setTimeout(() => {
-        axios.get(`${URL}/user?search=${search}`, {
-          headers : {
-            Authorization : user.token
-          }
-        })
+        axios.get(`${URL}/user?search=${search}`)
         .then((res) => {
           setSearchList(res.data)
         })
@@ -58,11 +50,7 @@ const ChatList = () => {
   }, [search, user])
 
   const handleAddChat = (participantId) => {
-    axios.post(`${URL}/chat`, {participantId}, {
-      headers : {
-        Authorization : user.token
-      }
-    })
+    axios.post(`${URL}/chat`, {participantId})
     .then((res) => {
       setRender(!render)
       setSearchList([])
