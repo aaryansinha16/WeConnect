@@ -61,7 +61,7 @@ app.post('/', (req, res) => {
     let cookieOptions = {
         httpOnly : true,
         expires : exp,
-        origin : 'http://localhost:5173',
+        // origin : 'http://localhost:5173',
         sameSite : 'none',
         secure : true
     }
