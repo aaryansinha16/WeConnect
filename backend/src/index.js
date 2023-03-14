@@ -68,7 +68,7 @@ app.post('/', (req, res) => {
     // }
     res.setHeader(
         'Set-Cookie',
-        `testCookie=aar; Expires=${exp}; HttpOnly; SameSite=none; Secure;`
+        `testCookie=aar; Expires=${exp}; HttpOnly; Domain=.vercel.app ; SameSite=none; Secure;`
     );
     // res.cookie('testCookie', "aaryan", cookieOptions)
     res.send("cookie created")
