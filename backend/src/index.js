@@ -61,6 +61,7 @@ app.post('/', (req, res) => {
     let cookieOptions = {
         httpOnly : true,
         expires : exp,
+        domain: 'https://we-connect-now.vercel.app',
         origin : 'https://we-connect-now.vercel.app',
         sameSite : 'none',
         secure : true
