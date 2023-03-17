@@ -26,7 +26,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
         res.cookie("weConnectUserCookie", token, cookieOptions)
         // console.log(res.cookie, req.cookies, 'AUTH CONTROLLER')
-        return res.status(200).send({user})
+        return res.status(200).send({user, token})
         
     }else{
         return res.status(403).send({
@@ -69,7 +69,8 @@ const signUpUser = asyncHandler(async (req, res) => {
         res.cookie("weConnectUserCookie", token, cookieOptions)
         
         return res.status(200).send({
-            user: userCreate
+            user: userCreate,
+            token
         })
     }else {
         return res.status(403).send({

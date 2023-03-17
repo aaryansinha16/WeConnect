@@ -38,7 +38,11 @@ const ChatList = () => {
 
       // ? Below timeout is for debouncing search
       let getUsers = setTimeout(() => {
-        axios.get(`${URL}/user?search=${search}`)
+        axios.get(`${URL}/user?search=${search}`, {
+          headers : {
+            Authorization : user.token
+          }
+        })
         .then((res) => {
           setSearchList(res.data)
         })
@@ -50,7 +54,11 @@ const ChatList = () => {
   }, [search, user])
 
   const handleAddChat = (participantId) => {
-    axios.post(`${URL}/chat`, {participantId})
+    axios.post(`${URL}/chat`, {participantId}, {
+      headers : {
+        Authorization : user.token
+      }
+    })
     .then((res) => {
       setRender(!render)
       setSearchList([])
